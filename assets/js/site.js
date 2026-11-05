@@ -66,32 +66,48 @@
     minuteries = [];
   }
 
+  function ecrire(c, mot, titre) {
+    c.innerHTML = '<div class="nom-bloc"><p class="nom-ecrit"><span></span><i class="curseur"></i><span class="reste">' + mot + '</span><i class="point"></i></p>' + (titre ? '<p class="nom-titre">' + titre + '</p>' : '') + '</div>';
+    var p = c.querySelector('.nom-ecrit'), texte = p.firstChild, curseur = p.querySelector('.curseur'), reste = p.querySelector('.reste');
+    for (var i = 1; i <= mot.length; i++) {
+      (function (n) { apres(300 + n * 80, function () { texte.textContent = mot.slice(0, n); reste.textContent = mot.slice(n); }); })(i);
+    }
+    var fin = 300 + mot.length * 80;
+    apres(fin + 500, function () {
+      curseur.remove();
+      p.classList.add('pose');
+    });
+    apres(fin + 1100, function () { p.querySelector('.point').classList.add('vue'); });
+    if (titre) apres(fin + 1600, function () { c.querySelector('.nom-titre').classList.add('vue'); });
+  }
+
   var scenes = {
-    accueil: function (c) {
-      c.innerHTML = '<div class="nom-bloc"><p class="nom-ecrit"><span></span><i class="curseur"></i><span class="reste">' + NOM + '</span><i class="point"></i></p><p class="nom-titre">' + TITRE + '</p></div>';
-      var p = c.querySelector('.nom-ecrit'), texte = p.firstChild, curseur = p.querySelector('.curseur'), reste = p.querySelector('.reste');
-      for (var i = 1; i <= NOM.length; i++) {
-        (function (n) { apres(300 + n * 80, function () { texte.textContent = NOM.slice(0, n); reste.textContent = NOM.slice(n); }); })(i);
-      }
-      var fin = 300 + NOM.length * 80;
-      apres(fin + 500, function () {
-        curseur.remove();
-        p.classList.add('pose');
-      });
-      apres(fin + 1100, function () { p.querySelector('.point').classList.add('vue'); });
-      apres(fin + 1600, function () { c.querySelector('.nom-titre').classList.add('vue'); });
-    },
+    accueil: function (c) { ecrire(c, NOM, TITRE); },
 
     clavier: function (c) {
       var langue = en ? 'en' : 'fr';
       var v = document.createElement('video');
       v.muted = true;
       v.playsInline = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.preload = 'auto';
       v.poster = racine + 'assets/video/intro-fin-' + langue + '.png';
       v.src = racine + 'assets/video/intro-' + langue + '.mp4';
       v.setAttribute('aria-label', en ? 'A Good Keyboard opening animation' : 'L’animation d’ouverture d’Un bon clavier');
       c.appendChild(v);
-      if (!calme) v.play().catch(function () {});
+      if (calme) return;
+      function repli() {
+        if (ecran.lastElementChild !== c || !v.parentNode) return;
+        v.remove();
+        c.classList.add('repli');
+        ecran.parentNode.dataset.scene = 'clavier-repli';
+        ecrire(c, en ? 'A Good Keyboard' : 'Un bon clavier');
+      }
+      v.addEventListener('error', repli);
+      var essai = v.play();
+      if (essai && essai.catch) essai.catch(repli);
+      apres(1500, function () { if (v.currentTime < 0.1) repli(); });
     },
 
     belmont: function (c) {

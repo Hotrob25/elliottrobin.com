@@ -26,9 +26,12 @@ a { color: inherit; }
 
 .scene {
   display: grid;
-  grid-template-columns: minmax(340px, 44%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 540px) auto;
+  justify-content: center;
+  column-gap: clamp(32px, 6vw, 112px);
   align-items: center;
   min-height: 100dvh;
+  padding: 0 clamp(28px, 5vw, 80px);
   overflow: hidden;
 }
 
@@ -39,7 +42,7 @@ a { color: inherit; }
   justify-content: space-between;
   gap: 32px;
   height: 100dvh;
-  padding: clamp(28px, 6vh, 56px) 24px clamp(24px, 4vh, 40px) clamp(28px, 7vw, 112px);
+  padding: clamp(28px, 6vh, 56px) 4px clamp(24px, 4vh, 40px) 4px;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -50,7 +53,7 @@ a { color: inherit; }
 .qui h1 { margin: 0; font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
 .qui .p { display: block; margin-top: 2px; font-size: 15px; font-weight: 500; letter-spacing: 0; }
 
-.projets { list-style: none; margin: 0; padding: 0; max-width: 360px; }
+.projets { list-style: none; margin: 0; padding: 0; }
 .projets > li { border-top: 1px solid var(--filet); }
 .projets > li:last-child { border-bottom: 1px solid var(--filet); }
 
@@ -221,6 +224,8 @@ a { color: inherit; }
 
 .c-accueil { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; text-align: center; }
 .nom-bloc { text-align: center; }
+.c-clavier.repli { display: flex; align-items: center; justify-content: center; padding-bottom: 16%; background: #f2f2f7; }
+.c-clavier.repli .nom-ecrit { font-size: 2em; }
 .nom-ecrit { margin: 0; font-size: 2.3em; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; transition: color 0.5s; }
 .nom-ecrit.pose { color: var(--vert); }
 .nom-ecrit .reste { visibility: hidden; }
@@ -378,11 +383,10 @@ a { color: inherit; }
 @keyframes entre { from { opacity: 0; transform: translateY(0.4em); } }
 
 @media (max-width: 760px) {
-  .scene { display: flex; flex-direction: column; align-items: stretch; overflow-x: clip; }
+  .scene { display: flex; flex-direction: column; align-items: stretch; padding: 0; overflow-x: clip; }
   .socle { order: 1; align-self: center; margin-top: 20px; }
   .cote { order: 2; height: auto; overflow: visible; padding: 28px 20px 24px; }
   .socle { --h: min(62dvh, 130vw); }
-  .projets { max-width: none; }
   .accueil .qui { display: none; }
 }
 
