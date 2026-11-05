@@ -34,7 +34,7 @@
       astuceTitre: 'Tip', astuce: ['Name the effect you want on the user', 'Say up front what the person should feel within 5 seconds, and what they must not feel.', 'Minimal page: within 5 seconds, you should think “this is simple”.'],
       nuage: 'Rated prompts, by day (1 to 5)', courbe: 'Average score, day by day',
       statsCoach: ['Prompts analyzed', 'Agent calls', 'Tokens written', 'Interruptions'],
-      barreMac: 'MacBook Pro menu bar',
+      barreMac: 'Mac menu bar',
       frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
       perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
       chrono: 'Worked today', statsChrono: ['Billable', 'Sessions', 'This week', 'Rounding'], arrondi: '¼ hour', frise: 'The day'
@@ -60,7 +60,7 @@
       astuceTitre: 'Astuce', astuce: ['Nomme l’effet voulu sur l’utilisateur', 'Dis d’avance ce que la personne doit ressentir en 5 secondes, et ce qu’elle ne doit surtout pas ressentir.', 'Page minimaliste : en 5 secondes, on doit se dire « c’est tout simple ».'],
       nuage: 'Prompts notés, par jour (1 à 5)', courbe: 'Note moyenne, jour par jour',
       statsCoach: ['Prompts analysés', 'Appels d’agents', 'Tokens écrits', 'Interruptions'],
-      barreMac: 'Barre d’état du MacBook Pro',
+      barreMac: 'Barre d’état du Mac',
       frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
       perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
       chrono: 'Travaillé aujourd’hui', statsChrono: ['Facturable', 'Séances', 'Cette semaine', 'Arrondi'], arrondi: '¼ d’heure', frise: 'La journée'
