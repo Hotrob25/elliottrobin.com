@@ -34,7 +34,10 @@
       astuceTitre: 'Tip', astuce: ['Name the effect you want on the user', 'Say up front what the person should feel within 5 seconds, and what they must not feel.', 'Minimal page: within 5 seconds, you should think “this is simple”.'],
       nuage: 'Rated prompts, by day (1 to 5)', courbe: 'Average score, day by day',
       statsCoach: ['Prompts analyzed', 'Agent calls', 'Tokens written', 'Interruptions'],
-      frappes: 'Keystrokes per day, on average', statsConti: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day'
+      barreMac: 'MacBook Pro menu bar',
+      frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
+      perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
+      chrono: 'Worked today', statsChrono: ['Billable', 'Sessions', 'This week', 'Rounding'], arrondi: '¼ hour', frise: 'The day'
     }
     : {
       locale: 'fr-CA',
@@ -57,7 +60,10 @@
       astuceTitre: 'Astuce', astuce: ['Nomme l’effet voulu sur l’utilisateur', 'Dis d’avance ce que la personne doit ressentir en 5 secondes, et ce qu’elle ne doit surtout pas ressentir.', 'Page minimaliste : en 5 secondes, on doit se dire « c’est tout simple ».'],
       nuage: 'Prompts notés, par jour (1 à 5)', courbe: 'Note moyenne, jour par jour',
       statsCoach: ['Prompts analysés', 'Appels d’agents', 'Tokens écrits', 'Interruptions'],
-      frappes: 'Frappes par jour, en moyenne', statsConti: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée'
+      barreMac: 'Barre d’état du MacBook Pro',
+      frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
+      perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
+      chrono: 'Travaillé aujourd’hui', statsChrono: ['Facturable', 'Séances', 'Cette semaine', 'Arrondi'], arrondi: '¼ d’heure', frise: 'La journée'
     };
 
   function apres(ms, f) { minuteries.push(setTimeout(f, calme ? 0 : ms)); }
@@ -211,32 +217,57 @@
       apres(300, function () { page(0); });
     },
 
-    conti: function (c) {
+    widgets: function (c) {
       var heures = [36041, 38654, 36601, 28022, 23518, 12058, 12492, 9772, 10569, 18807, 14798, 13262, 10813, 6386, 4044, 20858, 18602, 24652, 7054];
       var etiquettes = heures.map(function (_, i) { return [0, 7, 13, 18].indexOf(i) >= 0 ? (i + 5) + ' h' : ''; });
-      var chiffres = [nombre(41909), nombre(55256), nombre(450), '5 %'];
-      c.classList.add('c-mac');
-      c.innerHTML = barreMac('0');
-      var item = c.querySelector('.mac-item');
-      apres(500, function () {
-        c.insertAdjacentHTML('beforeend', '<div class="mac-menu"><h4>' + T.frappes + '</h4><span class="grand">0</span>' +
-          grille(T.statsConti, chiffres) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes) + '</div>');
-      });
-      for (var pas = 1; pas <= 40; pas++) {
-        (function (p) {
-          apres(600 + p * 45, function () {
-            var n = nombre(Math.round(29033 * (1 - Math.pow(1 - p / 40, 3))));
-            item.textContent = n;
-            var grand = c.querySelector('.grand');
-            if (grand) grand.textContent = n;
+      var virgule = function (t) { return en ? t : t.replace('.', ','); };
+      var occupation = [3, 0, 14];
+      var pages = [
+        function (zone) {
+          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(29033) + '</span>' +
+            grille(T.statsFrappes, [nombre(41909), nombre(55256), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
+          apres(250, function () { monterBarres(zone, heures); });
+        },
+        function (zone) {
+          zone.innerHTML = '<h4>' + T.processeur + '</h4><span class="grand">17 %</span>' +
+            grille(T.statsPerf, [pct(43), virgule('18.8') + T.memoire, pct(21), virgule('3.8') + T.go]) + '<h4>' + T.quiOccupe + '</h4>' +
+            '<div class="jauges">' + T.occupants.map(function (n, i) { return '<div><span>' + n + '</span><i><b></b></i><em>' + pct(occupation[i]) + '</em></div>'; }).join('') + '</div>';
+          apres(250, function () {
+            zone.querySelectorAll('.jauges b').forEach(function (b, i) { b.style.width = (occupation[i] / 17 * 100) + '%'; });
           });
-        })(pas);
+        },
+        function (zone) {
+          zone.innerHTML = '<h4>' + T.chrono + '</h4><span class="grand">6 h 43</span>' +
+            grille(T.statsChrono, ['6 h 45', '3', '31 h 30', T.arrondi]) + '<h4>' + T.frise + '</h4>' +
+            '<div class="frise"><i></i><i></i><i></i></div>' +
+            '<div class="frise-heures"><span>8 h</span><span>12 h</span><span>16 h</span></div>';
+        }
+      ];
+      var picto = [
+        '<path d="M1 3.5h14a.9.9 0 0 1 .9.9v7.2a.9.9 0 0 1-.9.9H1a.9.9 0 0 1-.9-.9V4.4A.9.9 0 0 1 1 3.5Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3 6.4h1.4M6 6.4h1.4M9 6.4h1.4M12 6.4h1.4M4.6 9.6h6.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>',
+        '<path d="M2 12.6a7 7 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9.4 11 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/>',
+        '<circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.2V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
+      ];
+      var textes = [nombre(29033), pct(17), '6 h 43'];
+      c.classList.add('c-mac');
+      c.innerHTML = '<p class="mac-lieu">' + T.barreMac + '</p><div class="mac-barre mac-widgets">' + textes.map(function (t, i) {
+        return '<span class="mac-item"><svg viewBox="0 0 16 16" aria-hidden="true">' + picto[i] + '</svg>' + t + '</span>';
+      }).join('') + '</div>';
+      var items = c.querySelectorAll('.mac-item');
+      function page(i) {
+        var ancienne = c.querySelector('.mac-menu');
+        if (ancienne) ancienne.remove();
+        items.forEach(function (e, n) { e.classList.toggle('actif', n === i); });
+        c.insertAdjacentHTML('beforeend', '<div class="mac-menu"></div>');
+        pages[i](c.querySelector('.mac-menu'));
+        if (!calme) apres(5500, function () { page((i + 1) % pages.length); });
       }
-      apres(900, function () { monterBarres(c, heures); });
+      apres(300, function () { page(0); });
     }
   };
 
   function nombre(n) { return n.toLocaleString(T.locale); }
+  function pct(n) { return n + (en ? '%' : ' %'); }
 
   function grille(noms, valeurs) {
     return '<dl class="grille">' + noms.map(function (n, i) { return '<div><dt>' + n + '</dt><dd>' + valeurs[i] + '</dd></div>'; }).join('') + '</dl>';
@@ -377,7 +408,7 @@
 
   var etroit = matchMedia('(max-width: 760px)');
   function sousLiPhone(b) {
-    var bas = document.querySelector('.socle').getBoundingClientRect().bottom - 26;
+    var bas = document.querySelector('.socle').getBoundingClientRect().bottom - 8;
     window.scrollBy({ top: b.getBoundingClientRect().top - bas, behavior: calme ? 'auto' : 'smooth' });
   }
 
