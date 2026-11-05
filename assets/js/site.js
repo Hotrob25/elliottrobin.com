@@ -333,7 +333,7 @@
 
   function envol(scene) {
     var p = ecran.querySelector('.nom-ecrit');
-    if (calme || !p || matchMedia('(max-width: 760px)').matches) {
+    if (calme || !p) {
       document.body.classList.remove('accueil');
       montrer(scene);
       return;
@@ -375,6 +375,12 @@
     '<svg viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity="0.4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.4v4.2c0.9-0.3 1.5-1.1 1.5-2.1s-0.6-1.8-1.5-2.1Z" opacity="0.5"/></svg>' +
     '</span></div><div class="indicateur" aria-hidden="true"></div>');
 
+  var etroit = matchMedia('(max-width: 760px)');
+  function sousLiPhone(b) {
+    var bas = document.querySelector('.socle').getBoundingClientRect().bottom - 26;
+    window.scrollBy({ top: b.getBoundingClientRect().top - bas, behavior: calme ? 'auto' : 'smooth' });
+  }
+
   function fermer(b) {
     b.setAttribute('aria-expanded', 'false');
     document.getElementById(b.getAttribute('aria-controls')).classList.remove('ouvert');
@@ -389,6 +395,7 @@
       document.getElementById(b.getAttribute('aria-controls')).classList.add('ouvert');
       if (document.body.classList.contains('accueil')) envol(b.dataset.scene);
       else montrer(b.dataset.scene);
+      if (etroit.matches) setTimeout(function () { sousLiPhone(b); }, 420);
     });
   });
 

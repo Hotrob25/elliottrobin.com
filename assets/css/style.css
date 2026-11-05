@@ -383,11 +383,29 @@ a { color: inherit; }
 @keyframes entre { from { opacity: 0; transform: translateY(0.4em); } }
 
 @media (max-width: 760px) {
-  .scene { display: flex; flex-direction: column; align-items: stretch; padding: 0; overflow-x: clip; }
-  .socle { order: 1; align-self: center; margin-top: 20px; }
-  .cote { order: 2; height: auto; overflow: visible; padding: 28px 20px 24px; }
-  .socle { --h: min(62dvh, 130vw); }
-  .accueil .qui { display: none; }
+  .scene { display: flex; flex-direction: column; align-items: stretch; padding: 0; overflow: clip; }
+  .cote { display: contents; }
+  .qui {
+    position: fixed;
+    z-index: 3;
+    top: max(16px, env(safe-area-inset-top));
+    left: 20px;
+  }
+  .socle {
+    --h: min(48svh, 104vw);
+    --w: calc(var(--h) * 0.46);
+    order: -1;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: max(14px, env(safe-area-inset-top)) 0 34px calc(62% - var(--w) / 2);
+    background: linear-gradient(180deg, var(--fond-haut), #0c1d0e);
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent);
+    mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent);
+  }
+  .socle::before { left: 62%; width: calc(var(--h) * 1.7); }
+  .projets { margin: 0 20px; }
+  .pied { padding: 28px 20px 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
