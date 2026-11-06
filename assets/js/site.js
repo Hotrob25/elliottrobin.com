@@ -13,11 +13,11 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=a9b89b4918';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=e10467ccf5';
     s.onload = fini;
     document.head.appendChild(s);
   }
-  var BELMONT = [['accueil', 20.5, 95, '#877a69'], ['brut', 38.5, 86.7, '#afa79c'], ['blanc', 61, 86.7, '#afa79c'], ['fume', 50, 74, '#afa79c', [50, 42, 'monte']], ['carrees', 61, 86.7, '#afa79c'], ['arrondies', 42, 44, '#afa79c', [72, 60, 'tourne']], ['angle', 0, 0, '#afa79c']];
+  var BELMONT = [['accueil', 20.5, 95, '#877a69'], ['brut', 38.5, 86.7, '#afa79c'], ['blanc', 61, 86.7, '#afa79c'], ['fume', 50, 74, '#afa79c', [50, 42, 'monte']], ['carrees', 61, 86.7, '#afa79c'], ['arrondies', 0, 0, '#afa79c']];
   var BONJOUR = { fr: 'Bonjour', en: 'Hello', es: 'Hola', zh: '你好', hi: 'नमस्ते', ar: 'مرحبا' };
   var NOTE = '3.98';
 
