@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=9320966b78';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=59b60cdc6c';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -221,7 +221,12 @@
       var coude = [W * 0.39, milieu + W * 0.28];
       branche([W * 0.13, milieu + W * 0.02], coude, 0, 0.33);
       branche(coude, [W * 0.87, milieu - W * 0.31], 0.33, 1);
-      var fuyard = points.reduce(function (a, b) { return b.y > a.y ? b : a; });
+      var d1 = [Math.SQRT1_2, Math.SQRT1_2], d2 = [W * 0.48, -W * 0.59], l2 = Math.hypot(d2[0], d2[1]);
+      d2 = [d2[0] / l2, d2[1] / l2];
+      var e1 = [coude[0] - d1[1] * pas, coude[1] + d1[0] * pas], e2 = [coude[0] - d2[1] * pas, coude[1] + d2[0] * pas];
+      var s1 = ((e2[0] - e1[0]) * d2[1] - (e2[1] - e1[1]) * d2[0]) / (d1[0] * d2[1] - d1[1] * d2[0]);
+      var fuyard = { x: e1[0] + d1[0] * s1, y: e1[1] + d1[1] * s1, o: 0.33 };
+      points.push(fuyard);
       var A = [W * 0.74, H * 0.7], B = [W * 0.24, H * 0.27], C = [W * 0.8, H * 0.22];
       function adoucir(k) { k = Math.max(0, Math.min(1, k)); return k * k * (3 - 2 * k); }
       function suivre(h) {
@@ -236,11 +241,11 @@
       }
       function balai(y, sens) {
         var trace = g.createLinearGradient(0, y - sens * pas * 2, 0, y);
-        trace.addColorStop(0, 'rgba(20,64,26,0)');
-        trace.addColorStop(1, 'rgba(20,64,26,0.08)');
+        trace.addColorStop(0, 'rgba(59,113,45,0)');
+        trace.addColorStop(1, 'rgba(59,113,45,0.08)');
         g.fillStyle = trace;
         g.fillRect(0, Math.min(y, y - sens * pas * 2), W, pas * 2);
-        g.fillStyle = 'rgba(20,64,26,0.45)';
+        g.fillStyle = 'rgba(59,113,45,0.45)';
         g.fillRect(0, y, W, 1);
       }
       function melanger() {
@@ -284,14 +289,14 @@
             }
           }
           if (p.f > 0.02) {
-            g.strokeStyle = 'rgba(20,64,26,' + p.f * 0.3 + ')';
+            g.strokeStyle = 'rgba(59,113,45,' + p.f * 0.3 + ')';
             g.lineWidth = 1;
             g.beginPath();
             g.arc(px, py, rayon + (1 - p.f) * pas * 0.7, 0, 6.29);
             g.stroke();
             p.f *= 0.95;
           }
-          g.fillStyle = 'rgba(' + Math.round(186 - 166 * p.v) + ',' + Math.round(191 - 127 * p.v) + ',' + Math.round(196 - 170 * p.v) + ',' + alpha + ')';
+          g.fillStyle = 'rgba(' + Math.round(186 - 127 * p.v) + ',' + Math.round(191 - 78 * p.v) + ',' + Math.round(196 - 151 * p.v) + ',' + alpha + ')';
           g.beginPath();
           g.arc(px, py, rayon, 0, 6.29);
           g.fill();
@@ -301,7 +306,7 @@
         if (h >= 2700 && h < 4100) balai(H * 0.92 - (h - 2700) / 1400 * H * 0.84, -1);
         if (h >= 4900 && h < 6200) {
           var k = adoucir((h - 4900) / 1000), net = h < 5900 ? 0.45 : 0.45 * (6200 - h) / 300;
-          g.fillStyle = 'rgba(20,64,26,' + net + ')';
+          g.fillStyle = 'rgba(59,113,45,' + net + ')';
           g.fillRect(0, C[1] * k, W, 1);
           g.fillRect(C[0] * k, 0, 1, H);
         }
