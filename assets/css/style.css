@@ -348,7 +348,8 @@ a { color: inherit; }
 .ado-ligne.maj em { color: #8a6500; font-weight: 700; }
 @keyframes pop { from { opacity: 0; transform: translateY(-0.8em) scale(0.92); } }
 
-.c-methode { display: flex; flex-direction: column; background: #fff; }
+.c-methode { display: flex; flex-direction: column; background: #f7f8f5; }
+.c-methode .fil { background: none; }
 .m-toile { display: block; flex: 1; min-height: 0; width: 100%; }
 
 .c-langues { --pas3: #237220; --pas2: #7baa79; --pas1: #bdd5bc; --pas0: #e9ebe7; display: flex; flex-direction: column; justify-content: space-between; padding: 23% 6% 13%; background: #fff; color: #111; }

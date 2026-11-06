@@ -13,7 +13,7 @@
   function chargerCarte(fini) {
     if (window.CARTE_LANGUES) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/carte-langues.js?v=eba52a4282';
+    s.src = racine + 'assets/js/carte-langues.js?v=a64626d050';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -176,57 +176,66 @@
       toile.width = W * r;
       toile.height = H * r;
       g.scale(r, r);
-      var COLS = 9, cote = W / (COLS + 1), haut = H * 0.15, lignes = Math.floor((H - haut - cote * 0.6) / cote);
-      var PASSE = 2300, DUREE = 4 * PASSE + 2200, NIVEAUX = [1, 0.62, 0.34, 0.14, 0];
-      var points = [], debut = 0;
-      for (var y = 0; y < lignes; y++) {
-        for (var x = 0; x < COLS; x++) points.push({ x: cote * (x + 1), y: haut + cote * (y + 0.5) });
+      var PASSE = 3000, DUREE = 4 * PASSE + 3000, NIVEAUX = [1, 0.62, 0.34, 0.14, 0];
+      var pas = W * 0.066, milieu = H * 0.47, points = [], debut = 0;
+      function branche(a, b, o1, o2) {
+        var dx = b[0] - a[0], dy = b[1] - a[1], long = Math.hypot(dx, dy), n = Math.round(long / pas);
+        for (var i = 0; i <= n; i++) {
+          for (var k = -1; k <= 1; k++) {
+            var x = a[0] + dx * i / n - dy / long * k * pas, y = a[1] + dy * i / n + dx / long * k * pas;
+            var pris = points.some(function (p) { return Math.hypot(p.x - x, p.y - y) < pas * 0.7; });
+            if (!pris) points.push({ x: x, y: y, o: o1 + (o2 - o1) * i / n });
+          }
+        }
       }
+      var coude = [W * 0.39, milieu + W * 0.28];
+      branche([W * 0.13, milieu + W * 0.02], coude, 0, 0.33);
+      branche(coude, [W * 0.87, milieu - W * 0.31], 0.33, 1);
       function melanger() {
         points.forEach(function (p) {
           p.tour = Math.min(3, Math.floor(Math.random() * 4.4));
-          p.a = cote * (0.9 + Math.random() * 1.9);
+          p.a = W * (0.14 + Math.random() * 0.34);
           p.ph = Math.random() * 6.28;
-          p.w = 0.0009 + Math.random() * 0.0016;
+          p.w = 0.0005 + Math.random() * 0.0009;
           p.n = 1; p.v = 0; p.f = 0;
         });
       }
       function dessiner(t) {
         var tour = Math.floor(t / PASSE), fin = tour >= 4;
-        var ligne = fin ? -1 : haut - cote + Math.min(1, (t % PASSE) / (PASSE * 0.82)) * (H - haut + cote);
-        var fondu = t > DUREE - 450 ? (DUREE - t) / 450 : 1;
-        var onde = fin ? (t - 4 * PASSE) / 1100 * H * 1.15 : -1;
+        var ligne = fin ? -1 : H * 0.08 + Math.min(1, (t % PASSE) / (PASSE * 0.85)) * H * 0.84;
+        var fondu = t > DUREE - 600 ? (DUREE - t) / 600 : 1;
+        var onde = fin ? (t - 4 * PASSE - 500) / 1300 : -1;
+        var taille = W * 0.021;
         g.clearRect(0, 0, W, H);
         points.forEach(function (p) {
           var faits = fin ? 4 : tour + (ligne >= p.y ? 1 : 0), place = faits > p.tour;
           if (place && !p.v) p.f = 1;
-          p.n += (NIVEAUX[faits] - p.n) * 0.09;
-          p.v += ((place ? 1 : 0) - p.v) * 0.14;
+          p.n += (NIVEAUX[faits] - p.n) * 0.06;
+          p.v += ((place ? 1 : 0) - p.v) * 0.08;
           if (p.v < 0.002 && !place) p.v = 0;
           var libre = p.n * (1 - p.v);
-          var px = p.x + Math.cos(t * p.w + p.ph) * p.a * libre, py = p.y + Math.sin(t * p.w * 1.3 + p.ph * 2) * p.a * libre;
-          var taille = cote * 0.15;
-          if (onde >= 0) taille *= 1 + 0.7 * Math.max(0, 1 - Math.abs(Math.hypot(p.x - W / 2, p.y - H / 2) - onde) / (cote * 2));
+          var px = p.x + Math.cos(t * p.w + p.ph) * p.a * libre, py = p.y + Math.sin(t * p.w * 1.3 + p.ph * 2) * p.a * 1.5 * libre;
+          var rayon = taille * (1 + 0.45 * Math.max(0, 1 - Math.abs(p.o - onde) / 0.14));
           if (p.f > 0.02) {
-            g.strokeStyle = 'rgba(35,114,32,' + p.f * 0.5 + ')';
+            g.strokeStyle = 'rgba(74,146,72,' + p.f * 0.3 + ')';
             g.lineWidth = 1;
             g.beginPath();
-            g.arc(px, py, taille + (1 - p.f) * cote * 0.6, 0, 6.29);
+            g.arc(px, py, rayon + (1 - p.f) * pas * 0.7, 0, 6.29);
             g.stroke();
-            p.f *= 0.93;
+            p.f *= 0.95;
           }
-          g.fillStyle = 'rgba(' + Math.round(165 - 130 * p.v) + ',' + Math.round(170 - 56 * p.v) + ',' + Math.round(178 - 146 * p.v) + ',' + fondu + ')';
+          g.fillStyle = 'rgba(' + Math.round(186 - 112 * p.v) + ',' + Math.round(191 - 45 * p.v) + ',' + Math.round(196 - 124 * p.v) + ',' + fondu + ')';
           g.beginPath();
-          g.arc(px, py, taille, 0, 6.29);
+          g.arc(px, py, rayon, 0, 6.29);
           g.fill();
         });
         if (ligne >= 0) {
-          var trace = g.createLinearGradient(0, ligne - cote * 1.6, 0, ligne);
-          trace.addColorStop(0, 'rgba(35,114,32,0)');
-          trace.addColorStop(1, 'rgba(35,114,32,0.14)');
+          var trace = g.createLinearGradient(0, ligne - pas * 2, 0, ligne);
+          trace.addColorStop(0, 'rgba(74,146,72,0)');
+          trace.addColorStop(1, 'rgba(74,146,72,0.09)');
           g.fillStyle = trace;
-          g.fillRect(0, ligne - cote * 1.6, W, cote * 1.6);
-          g.fillStyle = 'rgba(35,114,32,0.7)';
+          g.fillRect(0, ligne - pas * 2, W, pas * 2);
+          g.fillStyle = 'rgba(74,146,72,0.45)';
           g.fillRect(0, ligne, W, 1);
         }
         for (var n = 0; n < puces.length; n++) puces[n].classList.toggle('fait', n <= tour);
@@ -234,7 +243,7 @@
       melanger();
       if (calme) {
         points.forEach(function (p) { p.n = 0; p.v = 1; });
-        dessiner(4 * PASSE + 2000);
+        dessiner(4 * PASSE + 2300);
         return;
       }
       function image(maintenant) {
