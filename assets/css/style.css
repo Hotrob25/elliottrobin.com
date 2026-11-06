@@ -281,7 +281,10 @@ a { color: inherit; }
   letter-spacing: 0.34em;
   padding-left: 0.34em;
 }
-.c-belmont img { position: absolute; inset: 6.6% 0 0; height: 93.4%; opacity: 0; transition: opacity 0.8s; }
+.b-cadre { position: absolute; inset: 6.6% 0 0; overflow: hidden; }
+.c-belmont img { position: absolute; inset: 0; height: 100%; opacity: 0; transform-origin: top; transition: opacity 0.8s, transform 0.75s cubic-bezier(0.5, 0, 0.2, 1); }
+.c-belmont img.monte { transform: scale(1.08) translateY(-4%); }
+.c-belmont img.tourne { transform: scale(1.05); }
 .c-belmont img.vue { opacity: 1; }
 .c-belmont { transition: background 0.8s; }
 .doigt { position: absolute; left: 72%; top: 104%; width: 2.5em; height: 2.5em; margin: -1.25em; border-radius: 50%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.25); opacity: 0; transition: left 0.7s cubic-bezier(0.5, 0, 0.2, 1), top 0.7s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.3s, transform 0.14s; }

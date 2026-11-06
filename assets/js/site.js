@@ -13,11 +13,11 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=59b60cdc6c';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=a9b89b4918';
     s.onload = fini;
     document.head.appendChild(s);
   }
-  var BELMONT = [['accueil', 20.5, 95, '#877a69'], ['brut', 38.5, 86.7, '#afa79c'], ['blanc', 61, 86.7, '#afa79c'], ['fume', 0, 0, '#afa79c']];
+  var BELMONT = [['accueil', 20.5, 95, '#877a69'], ['brut', 38.5, 86.7, '#afa79c'], ['blanc', 61, 86.7, '#afa79c'], ['fume', 50, 74, '#afa79c', [50, 42, 'monte']], ['carrees', 61, 86.7, '#afa79c'], ['arrondies', 42, 44, '#afa79c', [72, 60, 'tourne']], ['angle', 0, 0, '#afa79c']];
   var BONJOUR = { fr: 'Bonjour', en: 'Hello', es: 'Hola', zh: '你好', hi: 'नमस्ते', ar: 'مرحبا' };
   var NOTE = '3.98';
 
@@ -329,7 +329,7 @@
     },
 
     belmont: function (c) {
-      c.innerHTML = BELMONT.map(function (e) { return '<img src="' + racine + 'assets/img/belmont-' + e[0] + '.jpg" alt="">'; }).join('') + '<i class="doigt"></i>';
+      c.innerHTML = '<div class="b-cadre">' + BELMONT.map(function (e) { return '<img src="' + racine + 'assets/img/belmont-' + e[0] + '.jpg" alt="">'; }).join('') + '</div><i class="doigt"></i>';
       var images = c.querySelectorAll('img'), doigt = c.querySelector('.doigt');
       function etape(i) {
         var e = BELMONT[i];
@@ -345,6 +345,18 @@
           doigt.style.top = e[2] + '%';
           doigt.classList.add('la');
         });
+        if (e[4]) {
+          apres(2250, function () {
+            doigt.style.left = e[4][0] + '%';
+            doigt.style.top = e[4][1] + '%';
+            images[i].classList.add(e[4][2]);
+          });
+          apres(2950, function () {
+            doigt.classList.remove('la');
+            etape(i + 1);
+          });
+          return;
+        }
         apres(2250, function () { doigt.classList.add('tape'); });
         apres(2550, function () {
           doigt.classList.remove('tape');
