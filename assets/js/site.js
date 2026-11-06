@@ -13,12 +13,11 @@
   function chargerCarte(fini) {
     if (window.CARTE_LANGUES) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/carte-langues.js?v=ef06490bfd';
+    s.src = racine + 'assets/js/carte-langues.js?v=eba52a4282';
     s.onload = fini;
     document.head.appendChild(s);
   }
   var BONJOUR = { fr: 'Bonjour', en: 'Hello', es: 'Hola', zh: '你好', hi: 'नमस्ते', ar: 'مرحبا' };
-  var INTERPRETES = [['EN', 'Understood'], ['ES', 'Entendido'], ['PT', 'Entendido'], ['IT', 'Capito'], ['DE', 'Verstanden'], ['NL', 'Begrepen'], ['SV', 'Uppfattat'], ['DA', 'Forstået'], ['NB', 'Forstått'], ['NN', 'Forstått'], ['FI', 'Selvä'], ['IS', 'Skilið']];
   var NOTE = '3.98';
 
   var T = en
@@ -50,12 +49,8 @@
       frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
       perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
       lTitre: 'What language does the world write in?', lPhrase: function (m, l) { return '<b>' + m + ' million people</b> write every day in ' + l + '.'; },
-      lNoms: { fr: 'French', en: 'English', es: 'Spanish', zh: 'Mandarin', hi: 'Hindi', ar: 'Arabic' }, lDepart: 'en', lLegende: 'Share who write in this language',
-      mFil: ['Decision', 'Checks', 'TestFlight', 'Interpreters'], mAgent: 'My agent', mAttend: 'Waiting for my decision',
-      mChat: ['Two options are equal. Your call.', 'Noted. Nothing ships without your OK.'],
-      mControles: 'Checks', mAvant: 'Before it reaches me', mTests: 'automated tests', mListe: ['Measurement benches', 'Language coverage', 'Project rules', 'Report read'],
-      mTest: 'I try it myself', mEssais: [['Trial 1', 'The correction comes too late'], ['Trial 2', 'The correction comes at the right moment']], mValide: 'Approved', mRefaire: 'Redo',
-      mInterpretes: 'Interpreters', mMeme: 'Same rigor in every language',
+      lNoms: { fr: 'French', en: 'English', es: 'Spanish', zh: 'Mandarin', hi: 'Hindi', ar: 'Arabic' }, lDepart: 'en',
+      mFil: ['Decide', 'Verify', 'Test', 'Iterate'],
       chrono: 'Worked today', statsChrono: ['Billable', 'Sessions', 'This week', 'Rounding'], arrondi: '¼ hour', frise: 'The day'
     }
     : {
@@ -86,12 +81,8 @@
       frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
       perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
       lTitre: 'Dans quelle langue le monde écrit-il ?', lPhrase: function (m, l) { return '<b>' + m + ' millions de personnes</b> écrivent au quotidien en ' + l + '.'; },
-      lNoms: { fr: 'français', en: 'anglais', es: 'espagnol', zh: 'mandarin', hi: 'hindi', ar: 'arabe' }, lDepart: 'fr', lLegende: 'Part qui écrit dans cette langue',
-      mFil: ['Décision', 'Contrôles', 'TestFlight', 'Interprètes'], mAgent: 'Mon agent', mAttend: 'Attend ma décision',
-      mChat: ['Deux options se valent. À toi de trancher.', 'Noté. Rien ne sort sans ton accord.'],
-      mControles: 'Contrôles', mAvant: 'Avant que ça me parvienne', mTests: 'tests automatisés', mListe: ['Bancs de mesure', 'Couverture des langues', 'Règles du projet', 'Compte rendu lu'],
-      mTest: 'Je l’essaie moi-même', mEssais: [['Essai 1', 'La correction arrive trop tard'], ['Essai 2', 'La correction arrive au bon moment']], mValide: 'Validé', mRefaire: 'À refaire',
-      mInterpretes: 'Interprètes', mMeme: 'La même rigueur dans chaque langue',
+      lNoms: { fr: 'français', en: 'anglais', es: 'espagnol', zh: 'mandarin', hi: 'hindi', ar: 'arabe' }, lDepart: 'fr',
+      mFil: ['Décider', 'Vérifier', 'Tester', 'Itérer'],
       chrono: 'Travaillé aujourd’hui', statsChrono: ['Facturable', 'Séances', 'Cette semaine', 'Arrondi'], arrondi: '¼ d’heure', frise: 'La journée'
     };
 
@@ -146,7 +137,7 @@
     },
 
     langues: function (c) {
-      c.innerHTML = '<h4 class="l-titre">' + T.lTitre + '</h4><p class="l-mot"><span></span><i></i></p><div class="l-carte"><b class="l-balai"></b></div><p class="l-chiffre"></p><p class="l-phrase"></p><ul class="l-puces"></ul><p class="l-legende">' + T.lLegende + '</p><ul class="l-echelle"><li><i class="pas3"></i>≥ ' + pct(80) + '</li><li><i class="pas2"></i>40–' + pct(79) + '</li><li><i class="pas1"></i>15–' + pct(39) + '</li></ul>';
+      c.innerHTML = '<p class="l-mot"><span></span><i></i></p><div class="l-carte"><b class="l-balai"></b></div><p class="l-chiffre"></p><p class="l-phrase"></p><ul class="l-puces"></ul>';
       chargerCarte(function () {
         if (!ecran.contains(c)) return;
         var d = window.CARTE_LANGUES;
@@ -179,75 +170,81 @@
     },
 
     methode: function (c) {
-      var aller = fil(c, T.mFil);
-      var vue = aller(0, enteteAgent(T.mAgent, T.mAttend) + '<div class="chat"></div>');
-      function agent(html, classe) {
-        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour agent ' + (classe || '') + '">' + PICTO + '<div><div class="bulle agent">' + html + '</div></div></div>');
+      c.innerHTML = '<canvas class="m-toile" aria-hidden="true"></canvas><ol class="fil"><li>' + T.mFil.join('</li><li>') + '</li></ol>';
+      var toile = c.firstChild, puces = c.lastChild.children, g = toile.getContext('2d');
+      var r = Math.min(window.devicePixelRatio || 1, 3), W = toile.clientWidth, H = toile.clientHeight;
+      toile.width = W * r;
+      toile.height = H * r;
+      g.scale(r, r);
+      var COLS = 9, cote = W / (COLS + 1), haut = H * 0.15, lignes = Math.floor((H - haut - cote * 0.6) / cote);
+      var PASSE = 2300, DUREE = 4 * PASSE + 2200, NIVEAUX = [1, 0.62, 0.34, 0.14, 0];
+      var points = [], debut = 0;
+      for (var y = 0; y < lignes; y++) {
+        for (var x = 0; x < COLS; x++) points.push({ x: cote * (x + 1), y: haut + cote * (y + 0.5) });
       }
-      function repond(texte) {
-        var points = vue.querySelector('.m-points');
-        if (points) points.remove();
-        agent(texte);
+      function melanger() {
+        points.forEach(function (p) {
+          p.tour = Math.min(3, Math.floor(Math.random() * 4.4));
+          p.a = cote * (0.9 + Math.random() * 1.9);
+          p.ph = Math.random() * 6.28;
+          p.w = 0.0009 + Math.random() * 0.0016;
+          p.n = 1; p.v = 0; p.f = 0;
+        });
       }
-      apres(200, function () { agent('<i></i><i></i><i></i>', 'm-points'); });
-      apres(1000, function () { repond(T.mChat[0]); });
-      apres(1500, function () {
-        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="m-options"><span>A</span><span>B</span></div>');
-      });
-      apres(2600, function () { vue.querySelectorAll('.m-options span')[1].classList.add('choisie'); });
-      apres(3200, function () { agent('<i></i><i></i><i></i>', 'm-points'); });
-      apres(3900, function () { repond(T.mChat[1]); });
-
-      apres(5200, function () {
-        vue = aller(1, '<div class="t-entete"><b>' + T.mControles + '</b><span>' + T.mAvant + '</span></div><div class="m-jauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fond" cx="50" cy="50" r="44" pathLength="100"/><circle class="arc" cx="50" cy="50" r="44" pathLength="100"/></svg><p><b>0</b><span>' + T.mTests + '</span></p></div><div class="m-liste">' +
-          T.mListe.map(function (l) { return '<div class="m-ligne"><span>' + l + '</span><svg viewBox="0 0 16 16" aria-hidden="true"><path pathLength="1" d="M3 8.5 6.5 12 13 4.5"/></svg></div>'; }).join('') + '</div>');
-        apres(80, function () { vue.querySelector('.m-jauge .arc').classList.add('pleine'); });
-        for (var s = 1; s <= 21; s++) {
-          (function (s) { apres(s * 70, function () { vue.querySelector('.m-jauge b').textContent = nombre(s * 100) + (s === 21 ? '+' : ''); }); })(s);
+      function dessiner(t) {
+        var tour = Math.floor(t / PASSE), fin = tour >= 4;
+        var ligne = fin ? -1 : haut - cote + Math.min(1, (t % PASSE) / (PASSE * 0.82)) * (H - haut + cote);
+        var fondu = t > DUREE - 450 ? (DUREE - t) / 450 : 1;
+        var onde = fin ? (t - 4 * PASSE) / 1100 * H * 1.15 : -1;
+        g.clearRect(0, 0, W, H);
+        points.forEach(function (p) {
+          var faits = fin ? 4 : tour + (ligne >= p.y ? 1 : 0), place = faits > p.tour;
+          if (place && !p.v) p.f = 1;
+          p.n += (NIVEAUX[faits] - p.n) * 0.09;
+          p.v += ((place ? 1 : 0) - p.v) * 0.14;
+          if (p.v < 0.002 && !place) p.v = 0;
+          var libre = p.n * (1 - p.v);
+          var px = p.x + Math.cos(t * p.w + p.ph) * p.a * libre, py = p.y + Math.sin(t * p.w * 1.3 + p.ph * 2) * p.a * libre;
+          var taille = cote * 0.15;
+          if (onde >= 0) taille *= 1 + 0.7 * Math.max(0, 1 - Math.abs(Math.hypot(p.x - W / 2, p.y - H / 2) - onde) / (cote * 2));
+          if (p.f > 0.02) {
+            g.strokeStyle = 'rgba(35,114,32,' + p.f * 0.5 + ')';
+            g.lineWidth = 1;
+            g.beginPath();
+            g.arc(px, py, taille + (1 - p.f) * cote * 0.6, 0, 6.29);
+            g.stroke();
+            p.f *= 0.93;
+          }
+          g.fillStyle = 'rgba(' + Math.round(165 - 130 * p.v) + ',' + Math.round(170 - 56 * p.v) + ',' + Math.round(178 - 146 * p.v) + ',' + fondu + ')';
+          g.beginPath();
+          g.arc(px, py, taille, 0, 6.29);
+          g.fill();
+        });
+        if (ligne >= 0) {
+          var trace = g.createLinearGradient(0, ligne - cote * 1.6, 0, ligne);
+          trace.addColorStop(0, 'rgba(35,114,32,0)');
+          trace.addColorStop(1, 'rgba(35,114,32,0.14)');
+          g.fillStyle = trace;
+          g.fillRect(0, ligne - cote * 1.6, W, cote * 1.6);
+          g.fillStyle = 'rgba(35,114,32,0.7)';
+          g.fillRect(0, ligne, W, 1);
         }
-        T.mListe.forEach(function (l, i) {
-          apres(500 + i * 420, function () { vue.querySelectorAll('.m-ligne')[i].classList.add('ok'); });
-        });
-      });
-
-      apres(8900, function () {
-        vue = aller(2, '<div class="t-entete"><b>TestFlight</b><span>' + T.mTest + '</span></div><div class="t-cartes"></div>');
-        T.mEssais.forEach(function (k, i) {
-          apres(200 + i * 1500, function () {
-            vue.querySelector('.t-cartes').insertAdjacentHTML('beforeend', '<div class="carte-po m-essai"><small>' + k[0] + '</small><b>' + k[1] + '</b><em class="m-tampon ' + (i ? 'oui' : 'non') + '">' + (i ? T.mValide : T.mRefaire) + '</em></div>');
-          });
-          apres(900 + i * 1500, function () { vue.querySelectorAll('.m-tampon')[i].classList.add('vu'); });
-        });
-      });
-
-      apres(12400, function () {
-        var points = INTERPRETES.map(function (l, i) {
-          var a = (i * 30 - 90) * Math.PI / 180;
-          return [Math.round(100 + 80 * Math.cos(a)), Math.round(100 + 80 * Math.sin(a))];
-        });
-        vue = aller(3, '<div class="t-entete"><b>' + T.mInterpretes + '</b><span>' + T.mMeme + '</span></div><div class="m-reseau"><svg viewBox="0 0 200 200" aria-hidden="true">' +
-          points.map(function (p) { return '<line x1="100" y1="100" x2="' + p[0] + '" y2="' + p[1] + '"/>'; }).join('') +
-          points.map(function (p, i) { return '<g class="noeud" transform="translate(' + p[0] + ' ' + p[1] + ')"><circle r="15"/><text y="3.6">' + INTERPRETES[i][0] + '</text></g>'; }).join('') +
-          '<g transform="translate(100 100)"><circle class="centre" r="23"/><text class="centre" y="5">FR</text></g>' +
-          points.map(function () { return '<circle class="impulsion" r="4"/>'; }).join('') +
-          '</svg><p class="m-dit"></p></div>');
-        var liens = vue.querySelectorAll('line'), noeuds = vue.querySelectorAll('.noeud'), impulsions = vue.querySelectorAll('.impulsion'), dit = vue.querySelector('.m-dit');
-        points.forEach(function (p, i) {
-          apres(350 + i * 340, function () {
-            if (calme) return;
-            impulsions[i].animate([
-              { transform: 'translate(100px, 100px)', opacity: 1 },
-              { transform: 'translate(' + p[0] + 'px, ' + p[1] + 'px)', opacity: 1 }
-            ], { duration: 400, easing: 'ease-in' });
-          });
-          apres(750 + i * 340, function () {
-            liens[i].classList.add('ok');
-            noeuds[i].classList.add('ok');
-            dit.textContent = INTERPRETES[i][1];
-          });
-        });
-        if (!calme) apres(5900, function () { scenes.methode(c); });
-      });
+        for (var n = 0; n < puces.length; n++) puces[n].classList.toggle('fait', n <= tour);
+      }
+      melanger();
+      if (calme) {
+        points.forEach(function (p) { p.n = 0; p.v = 1; });
+        dessiner(4 * PASSE + 2000);
+        return;
+      }
+      function image(maintenant) {
+        if (!ecran.contains(c)) return;
+        if (!debut) debut = maintenant;
+        if (maintenant - debut >= DUREE) { debut = maintenant; melanger(); }
+        dessiner(maintenant - debut);
+        requestAnimationFrame(image);
+      }
+      requestAnimationFrame(image);
     },
 
     belmont: function (c) {
