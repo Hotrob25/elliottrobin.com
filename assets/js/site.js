@@ -36,7 +36,7 @@
       statsCoach: ['Prompts analyzed', 'Agent calls', 'Tokens written', 'Interruptions'],
       pbProgramme: 'Alpha program', pbStatut: 'Steering committee status', pbFil: ['Actual', 'Projection', 'Deliverables'],
       pbValeur: 'Value delivered', pbRealisation: 'Completion', pbCible: 'Target', pbVolet: 'Stream ', pbLivrable: 'Deliverable', pbReel: 'Actual', pbProjete: 'Projected',
-      pbLignes: [['Client portal', 100, 100], ['Data migration', 80, 100], ['Access governance', 60, 100], ['Report automation', 45, 80], ['Team training', 30, 70], ['Legacy system retirement', 0, 40]],
+      pbLignes: [['Mobile app', 100, 100], ['New website', 85, 100], ['Loyalty program', 55, 90], ['Virtual call center', 40, 85], ['Sales dashboard', 20, 75], ['Satisfaction survey', 10, 60]],
       barreMac: 'Mac menu bar',
       frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
       perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
@@ -65,7 +65,7 @@
       statsCoach: ['Prompts analysés', 'Appels d’agents', 'Tokens écrits', 'Interruptions'],
       pbProgramme: 'Programme Alpha', pbStatut: 'Statut au comité de gestion', pbFil: ['Réel', 'Projection', 'Livrables'],
       pbValeur: 'Valeur livrée', pbRealisation: 'Réalisation', pbCible: 'Cible', pbVolet: 'Volet ', pbLivrable: 'Livrable', pbReel: 'Réel', pbProjete: 'Projeté',
-      pbLignes: [['Portail client', 100, 100], ['Migration des données', 80, 100], ['Gouvernance des accès', 60, 100], ['Automatisation des rapports', 45, 80], ['Formation des équipes', 30, 70], ['Retrait de l’ancien système', 0, 40]],
+      pbLignes: [['Application mobile', 100, 100], ['Nouveau site web', 85, 100], ['Programme de fidélité', 55, 90], ['Centre d’appels virtuel', 40, 85], ['Tableau de bord des ventes', 20, 75], ['Sondage de satisfaction', 10, 60]],
       barreMac: 'Barre d’état du Mac',
       frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
       perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
@@ -184,8 +184,8 @@
       var aller = fil(c, T.pbFil);
       var entete = '<div class="pb-entete"><b>' + T.pbProgramme + '</b><span>' + T.pbStatut + '</span></div>';
       var pages = [
-        entete + blocPb(T.pbValeur, 58, [66, 61, 52, 41], 'reel') + blocPb(T.pbRealisation, 69, [74, 70, 63, 58], 'reel'),
-        entete + blocPb(T.pbValeur, 81, [88, 79, 76, 68], 'projete', 75) + blocPb(T.pbRealisation, 88, [94, 87, 84, 80], 'projete'),
+        entete + blocPb(T.pbValeur, 47, [55, 49, 44, 38], 'reel') + blocPb(T.pbRealisation, 62, [68, 66, 57, 52], 'reel'),
+        entete + blocPb(T.pbValeur, 84, [93, 88, 79, 74], 'projete', 90) + blocPb(T.pbRealisation, 89, [96, 90, 87, 83], 'projete'),
         entete + '<div class="pb-table"><div class="pb-ligne pb-tete"><span>' + T.pbLivrable + '</span><span>' + T.pbReel + '</span><span>' + T.pbProjete + '</span></div>' +
           T.pbLignes.map(function (l) {
             return '<div class="pb-ligne' + (l[1] === 100 ? ' fini' : '') + '"><span>' + l[0] + '</span><b>' + pct(l[1]) + '</b><b>' + pct(l[2]) + '</b></div>';
@@ -337,7 +337,7 @@
   }
 
   function blocPb(titre, valeur, volets, genre, cible) {
-    var repere = cible ? '<path class="pb-repere" d="M72.6 27.4 83.9 16.1"/>' : '';
+    var repere = cible ? '<path class="pb-repere" d="M80.4 40.1 95.7 35.2"/>' : '';
     return '<section class="pb-bloc ' + genre + '"><h4>' + titre + (cible ? '<small>' + T.pbCible + ' ' + pct(cible) + '</small>' : '') + '</h4><div class="pb-rangee">' +
       '<svg class="pb-jauge" viewBox="0 0 100 56" role="img" aria-label="' + titre + ' ' + pct(valeur) + '"><path class="pb-fond" pathLength="100" d="M10 50A40 40 0 0 1 90 50"/><path class="pb-arc" data-v="' + valeur + '" pathLength="100" d="M10 50A40 40 0 0 1 90 50"/>' + repere + '<text x="50" y="50">' + pct(valeur) + '</text></svg>' +
       '<div class="pb-tuiles">' + volets.map(function (v, i) { return '<div><small>' + T.pbVolet + (i + 1) + '</small><b>' + pct(v) + '</b></div>'; }).join('') + '</div></div></section>';
