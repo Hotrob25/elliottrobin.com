@@ -286,6 +286,7 @@ a { color: inherit; }
 .t-entete { padding: 16% 7% 4%; background: #4b53bc; color: #fff; }
 .t-entete b { display: block; font-size: 1.1em; }
 .t-entete span { font-size: 0.85em; opacity: 0.85; }
+.picto-agent { border-radius: 50%; overflow: hidden; }
 .t-entete.a-picto { display: flex; align-items: center; gap: 0.6em; }
 .t-entete .picto-agent { flex: none; width: 2.5em; height: 2.5em; border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
 .t-ligne .picto-agent { flex: none; width: 1.6em; height: 1.6em; }

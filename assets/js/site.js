@@ -9,7 +9,7 @@
   var NUAGE = [3,4,14,15,24,24,33,32,33,34,32,34,44,44,45,54,53,55,64,75,74,83,83,84,95,94,95,93,105,104,115,115,114,113,113,124,123,125,125,125,134,135,135,144,144,144,143,145,143,154,153,163,165,174,175,175,182,184,183,184,185,194,194,195,203,204,215,213,215,214,213,214,225,223,225,223,224,232,235,232,235,245,244,244,243,244,244,243,244,242,243,244,245,244,243,244,245,255,252,254,255,253,254,252,255,253,265,264,265,265,265,274,272,284,285,284,284,284,284,293,294,294,293,295,294,295,304,304,304,304,304,304,313,312,314,314,314,313,315,314,314,315,314,324,324,324,324,323,324,323,323,325,325,324,335,335,332,334,333,334,334,343,344,344,344,345,345,354,355,364];
   var MOYENNES = [3.79,3.52,3.75,3.58,3.64,3.58,3.79,3.77,3.85,3.76,4.1,4.04,3.89,3.84,3.92,3.89,3.81,3.81,3.93,4.08,3.95,3.96,3.85,3.86,3.96,4.01,4.0,3.94,4.23,4.0];
   var VOLUMES = [21,50,45,21,54,62,50,61,44,18,38,42,65,20,68,52,98,166,97,74,51,70,95,78,113,110,81,72,33,11];
-  var PICTO = '<svg class="picto-agent" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#4b53bc"/><path d="M16 5v4" stroke="#fff" stroke-width="1.4"/><circle cx="16" cy="4.8" r="1.5" fill="#fff"/><rect x="6.5" y="8.5" width="19" height="17" rx="6" fill="#fff"/><path d="M6.5 13.6h19" stroke="#111" stroke-width="1.3"/><path d="M8.6 13.2h6.6v2.3a3.3 3.3 0 0 1-6.6 0zM16.8 13.2h6.6v2.3a3.3 3.3 0 0 1-6.6 0z" fill="#111"/><path d="M10 14.6l1.6 1.8M18.2 14.6l1.6 1.8" stroke="#fff" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/><path d="M12.4 21.2c1.9 1.5 5.3 1.5 7.2 0" fill="none" stroke="#111" stroke-width="1.3" stroke-linecap="round"/></svg>';
+  var PICTO = '<svg class="picto-agent" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#2b2f4a"/><path d="M3 32c0-6 4.6-9.2 10-10.2l3 2.2 3-2.2c5.4 1 10 4.2 10 10.200z" fill="#0d0e13"/><path d="M12.8 21.7 16 28l3.2-6.300z" fill="#fff"/><path d="M15 23.300h2l.5 1.1-.8 4.400h-1.400l-.8-4.400z" fill="#0d0e13"/><path d="M13.6 17h4.800v5.200L16 24l-2.4-1.800z" fill="#d9a67c"/><ellipse cx="16" cy="12.8" rx="6.6" ry="7.6" fill="#eebd93"/><path d="M9.2 12.400C8.4 6.6 11.8 3.6 16.5 3.600c4.8 0 7.2 3.2 6.3 8.8-.5-2.3-1.5-3.7-3.2-4.4-3.2 1-6.9.8-8.4.4-.9.9-1.6 2.1-2 4z" fill="#14110e"/><path d="M8.6 11.300h14.8" stroke="#08080a" stroke-width="1.1"/><path d="M9 11.300h6.300c.3 0 .5.2.5.5 0 2.6-1.1 4.5-3.5 4.5-2.2 0-3.6-1.9-3.7-4.5 0-.3.1-.5.4-.5zM16.2 11.800c0-.3.2-.5.5-.5H23c.3 0 .4.2.4.5-.1 2.6-1.5 4.5-3.7 4.5-2.4 0-3.5-1.9-3.5-4.500z" fill="#08080a"/><path d="M10.6 14.600l2.4-2.400M18 14.600l2.4-2.4" stroke="#fff" stroke-width="0.8" stroke-linecap="round" opacity="0.8"/><path d="M14.4 18.2c1.3.3 2.6.1 3.8-.8" fill="none" stroke="#6e3f24" stroke-width="0.7" stroke-linecap="round"/><path d="M22.7 13.800c.9.3 1 1.3.7 2.3-.4 1.5-.3 3.6.6 5.4" fill="none" stroke="#dfe2ea" stroke-width="0.6" stroke-linecap="round"/></svg>';
   var NOTE = '3.98';
 
   var T = en
@@ -17,7 +17,7 @@
       locale: 'en-CA',
       rencontre: 'Team meeting', transcription: 'Transcript',
       moi: 'Me', lignes: [['Me', 'Clients want to filter the report by date.'], ['JT', 'And the export label is still wrong.'], ['Me', 'Let’s fix that in this sprint.'], ['agent', 'Got it. Preparing 2 cards for the PO.']],
-      nomAgent: 'AI agent', agent: 'In Teams', pour: 'For the Product Owner',
+      nomTranscription: 'Transcript agent', nomBacklog: 'Backlog agent', agent: 'In Teams', pour: 'For the Product Owner',
       cartes: [['New story', 'Filter the report by date'], ['Update to #1198', 'Fix the export label']], approuver: 'Approve', rejeter: 'Reject', approuve: 'Approved',
       filTeams: ['Meeting', 'Card to PO', 'Backlog'], filStories: ['Teams chat', 'Flow', 'Backlog'],
       sprint: 'Backlog · current sprint', nouveau: 'New', actif: 'Active', maj: 'Updated',
@@ -46,7 +46,7 @@
       locale: 'fr-CA',
       rencontre: 'Rencontre d’équipe', transcription: 'Transcription',
       moi: 'Moi', lignes: [['Moi', 'Les clients veulent filtrer le rapport par date.'], ['JT', 'Et le libellé de l’export est encore mauvais.'], ['Moi', 'On règle ça dans ce sprint.'], ['agent', 'C’est noté. Je prépare 2 cartes pour le PO.']],
-      nomAgent: 'Agent IA', agent: 'Dans Teams', pour: 'Pour le Product Owner',
+      nomTranscription: 'Agent de transcription', nomBacklog: 'Agent du backlog', agent: 'Dans Teams', pour: 'Pour le Product Owner',
       cartes: [['Nouvelle story', 'Filtrer le rapport par date'], ['Mise à jour de #1198', 'Corriger le libellé de l’export']], approuver: 'Approuver', rejeter: 'Rejeter', approuve: 'Approuvée',
       filTeams: ['Rencontre', 'Carte au PO', 'Backlog'], filStories: ['Conversation', 'Flux', 'Backlog'],
       sprint: 'Backlog · sprint courant', nouveau: 'Nouveau', actif: 'Actif', maj: 'Mise à jour',
@@ -146,7 +146,7 @@
         var cartes = T.cartes.map(function (k) {
           return '<div class="carte-po"><small>' + k[0] + '</small><b>' + k[1] + '</b><div class="boutons"><span class="oui">' + T.approuver + '</span><span>' + T.rejeter + '</span></div></div>';
         }).join('');
-        vue = aller(1, enteteAgent(T.pour) + '<div class="t-cartes">' + cartes + '</div>');
+        vue = aller(1, enteteAgent(T.nomTranscription, T.pour) + '<div class="t-cartes">' + cartes + '</div>');
       });
       [0, 1].forEach(function (i) {
         apres(3900 + i * 800, function () {
@@ -166,7 +166,7 @@
 
     stories: function (c) {
       var aller = fil(c, T.filStories);
-      var vue = aller(0, enteteAgent(T.agent) + '<div class="chat"></div>');
+      var vue = aller(0, enteteAgent(T.nomBacklog, T.agent) + '<div class="chat"></div>');
       ecrireChat(vue, T.chat);
       var depart = 300 + T.chat.length * 650 + 500;
       apres(depart, function () {
@@ -357,13 +357,13 @@
     messages.forEach(function (m, i) {
       apres(300 + i * 650, function () {
         var agent = m[0] === 'agent';
-        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour ' + m[0] + '">' + (agent ? PICTO : '') + '<div><small>' + (agent ? T.nomAgent : T.moi) + '</small><div class="bulle ' + m[0] + '">' + m[1] + '</div></div></div>');
+        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour ' + m[0] + '">' + (agent ? PICTO : '') + '<div><small>' + (agent ? T.nomBacklog : T.moi) + '</small><div class="bulle ' + m[0] + '">' + m[1] + '</div></div></div>');
       });
     });
   }
 
-  function enteteAgent(sousTitre) {
-    return '<div class="t-entete a-picto">' + PICTO + '<div><b>' + T.nomAgent + '</b><span>' + sousTitre + '</span></div></div>';
+  function enteteAgent(nom, sousTitre) {
+    return '<div class="t-entete a-picto">' + PICTO + '<div><b>' + nom + '</b><span>' + sousTitre + '</span></div></div>';
   }
 
   function ligneBacklog(l) {
