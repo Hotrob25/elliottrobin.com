@@ -34,6 +34,9 @@
       astuceTitre: 'Tip', astuce: ['Name the effect you want on the user', 'Say up front what the person should feel within 5 seconds, and what they must not feel.', 'Minimal page: within 5 seconds, you should think “this is simple”.'],
       nuage: 'Rated prompts, by day (1 to 5)', courbe: 'Average score, day by day',
       statsCoach: ['Prompts analyzed', 'Agent calls', 'Tokens written', 'Interruptions'],
+      pbProgramme: 'Alpha program', pbStatut: 'Steering committee status', pbFil: ['Actual', 'Projection', 'Deliverables'],
+      pbValeur: 'Value delivered', pbRealisation: 'Completion', pbCible: 'Target', pbVolet: 'Stream ', pbLivrable: 'Deliverable', pbReel: 'Actual', pbProjete: 'Projected',
+      pbLignes: [['Client portal', 100, 100], ['Data migration', 80, 100], ['Access governance', 60, 100], ['Report automation', 45, 80], ['Team training', 30, 70], ['Legacy system retirement', 0, 40]],
       barreMac: 'Mac menu bar',
       frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
       perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
@@ -60,6 +63,9 @@
       astuceTitre: 'Astuce', astuce: ['Nomme l’effet voulu sur l’utilisateur', 'Dis d’avance ce que la personne doit ressentir en 5 secondes, et ce qu’elle ne doit surtout pas ressentir.', 'Page minimaliste : en 5 secondes, on doit se dire « c’est tout simple ».'],
       nuage: 'Prompts notés, par jour (1 à 5)', courbe: 'Note moyenne, jour par jour',
       statsCoach: ['Prompts analysés', 'Appels d’agents', 'Tokens écrits', 'Interruptions'],
+      pbProgramme: 'Programme Alpha', pbStatut: 'Statut au comité de gestion', pbFil: ['Réel', 'Projection', 'Livrables'],
+      pbValeur: 'Valeur livrée', pbRealisation: 'Réalisation', pbCible: 'Cible', pbVolet: 'Volet ', pbLivrable: 'Livrable', pbReel: 'Réel', pbProjete: 'Projeté',
+      pbLignes: [['Portail client', 100, 100], ['Migration des données', 80, 100], ['Gouvernance des accès', 60, 100], ['Automatisation des rapports', 45, 80], ['Formation des équipes', 30, 70], ['Retrait de l’ancien système', 0, 40]],
       barreMac: 'Barre d’état du Mac',
       frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
       perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
@@ -172,6 +178,27 @@
       var fin = depart + 300 + T.flux.length * 380 + 300;
       apres(fin, function () { vue = aller(2, backlog()); });
       apres(fin + 500, function () { ajouterStory(vue); });
+    },
+
+    powerbi: function (c) {
+      var aller = fil(c, T.pbFil);
+      var entete = '<div class="pb-entete"><b>' + T.pbProgramme + '</b><span>' + T.pbStatut + '</span></div>';
+      var pages = [
+        entete + blocPb(T.pbValeur, 58, [66, 61, 52, 41], 'reel') + blocPb(T.pbRealisation, 69, [74, 70, 63, 58], 'reel'),
+        entete + blocPb(T.pbValeur, 81, [88, 79, 76, 68], 'projete', 75) + blocPb(T.pbRealisation, 88, [94, 87, 84, 80], 'projete'),
+        entete + '<div class="pb-table"><div class="pb-ligne pb-tete"><span>' + T.pbLivrable + '</span><span>' + T.pbReel + '</span><span>' + T.pbProjete + '</span></div>' +
+          T.pbLignes.map(function (l) {
+            return '<div class="pb-ligne' + (l[1] === 100 ? ' fini' : '') + '"><span>' + l[0] + '</span><b>' + pct(l[1]) + '</b><b>' + pct(l[2]) + '</b></div>';
+          }).join('') + '</div>'
+      ];
+      function page(i) {
+        var vue = aller(i, pages[i]);
+        apres(80, function () {
+          vue.querySelectorAll('.pb-arc').forEach(function (a) { a.style.strokeDashoffset = 100 - a.dataset.v; });
+        });
+        if (!calme) apres(5500, function () { page((i + 1) % pages.length); });
+      }
+      page(0);
     },
 
     comptable: function (c) {
@@ -309,6 +336,13 @@
     c.querySelectorAll('.barre b').forEach(function (b, i) { b.style.height = (valeurs[i] / max * 78) + '%'; });
   }
 
+  function blocPb(titre, valeur, volets, genre, cible) {
+    var repere = cible ? '<path class="pb-repere" d="M72.6 27.4 83.9 16.1"/>' : '';
+    return '<section class="pb-bloc ' + genre + '"><h4>' + titre + (cible ? '<small>' + T.pbCible + ' ' + pct(cible) + '</small>' : '') + '</h4><div class="pb-rangee">' +
+      '<svg class="pb-jauge" viewBox="0 0 100 56" role="img" aria-label="' + titre + ' ' + pct(valeur) + '"><path class="pb-fond" pathLength="100" d="M10 50A40 40 0 0 1 90 50"/><path class="pb-arc" data-v="' + valeur + '" pathLength="100" d="M10 50A40 40 0 0 1 90 50"/>' + repere + '<text x="50" y="50">' + pct(valeur) + '</text></svg>' +
+      '<div class="pb-tuiles">' + volets.map(function (v, i) { return '<div><small>' + T.pbVolet + (i + 1) + '</small><b>' + pct(v) + '</b></div>'; }).join('') + '</div></div></section>';
+  }
+
   function fil(c, noms) {
     c.innerHTML = '<div class="vue-zone"></div><ol class="fil"><li>' + noms.join('</li><li>') + '</li></ol>';
     var zone = c.firstChild, puces = c.lastChild.children;
@@ -386,6 +420,7 @@
     p.style.visibility = 'hidden';
     var titre = ecran.querySelector('.nom-titre');
     if (titre) titre.classList.remove('vue');
+    document.body.classList.add('part');
     var fin = 'translate(' + (arrivee.left - depart.left) + 'px, ' + (arrivee.top - depart.top) + 'px) scale(' + (arrivee.width / depart.width) + ')';
     vol.animate([
       { transform: 'none', color: '#237220' },
