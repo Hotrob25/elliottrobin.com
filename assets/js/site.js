@@ -13,11 +13,11 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=d8619b9ed4';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=10de566211';
     s.onload = fini;
     document.head.appendChild(s);
   }
-  var BELMONT = [['accueil', '#877a69'], ['brut', '#afa79c'], ['blanc', '#afa79c'], ['fume', '#afa79c', true], ['carrees', '#afa79c'], ['arrondies', '#afa79c']];
+  var BELMONT = [['accueil', '#877a69'], ['brut', '#afa79c'], ['blanc', '#afa79c'], ['fume', '#afa79c'], ['carrees', '#afa79c'], ['arrondies', '#afa79c']];
   var BONJOUR = { fr: 'Bonjour', en: 'Hello', es: 'Hola', zh: '你好', hi: 'नमस्ते', ar: 'مرحبا' };
   var NOTE = '3.98';
 
@@ -330,17 +330,15 @@
 
     belmont: function (c) {
       c.innerHTML = '<div class="b-cadre">' + BELMONT.map(function (e) { return '<img src="' + racine + 'assets/img/belmont-' + e[0] + '.jpg" alt="">'; }).join('') + '</div>';
-      var images = c.querySelectorAll('img');
+      var images = c.querySelectorAll('img'), rang = 0, avant = null;
       function etape(i) {
-        var e = BELMONT[i];
-        images[i].classList.add('vue');
-        c.style.background = e[1];
-        if (i === BELMONT.length - 1) {
-          boucle('belmont', 3000);
-          return;
-        }
-        if (e[2]) apres(1900, function () { images[i].classList.add('monte'); });
-        apres(e[2] ? 2600 : 2400, function () { etape(i + 1); });
+        var image = images[i], ancienne = avant;
+        image.style.zIndex = ++rang;
+        image.classList.add('vue');
+        c.style.background = BELMONT[i][1];
+        avant = image;
+        if (ancienne) apres(1000, function () { ancienne.classList.remove('vue'); });
+        if (!calme) apres(3000, function () { etape((i + 1) % images.length); });
       }
       etape(0);
     },

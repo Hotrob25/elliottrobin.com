@@ -282,10 +282,9 @@ a { color: inherit; }
   padding-left: 0.34em;
 }
 .b-cadre { position: absolute; inset: 6.6% 0 0; overflow: hidden; }
-.c-belmont img { position: absolute; inset: 0; height: 100%; opacity: 0; transform-origin: top; transition: opacity 0.8s, transform 0.75s cubic-bezier(0.5, 0, 0.2, 1); }
-.c-belmont img.monte { transform: scale(1.08) translateY(-4%); }
+.c-belmont img { position: absolute; inset: 0; height: 100%; opacity: 0; transition: opacity 0.9s ease; }
 .c-belmont img.vue { opacity: 1; }
-.c-belmont { transition: background 0.8s; }
+.c-belmont { transition: background 0.9s ease; }
 
 .c-teams, .c-stories, .c-powerbi { display: flex; flex-direction: column; background: #f5f5f5; }
 .vue-zone { flex: 1; min-height: 0; overflow: hidden; }
