@@ -211,7 +211,6 @@ a { color: inherit; }
   transition: opacity 0.3s;
 }
 .phone[data-scene="teams"] .statut, .phone[data-scene="stories"] .statut, .phone[data-scene="powerbi"] .statut { color: #fff; }
-.phone[data-scene="clavier"] .statut, .phone[data-scene="clavier"] .indicateur { opacity: 0; }
 
 .phone > i {
   position: absolute;
@@ -238,8 +237,8 @@ a { color: inherit; }
 
 .c-accueil { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; text-align: center; }
 .nom-bloc { text-align: center; }
-.c-clavier.repli { display: flex; align-items: center; justify-content: center; padding-bottom: 16%; background: #f2f2f7; }
-.c-clavier.repli .nom-ecrit { font-size: 2em; }
+.c-clavier { background: #fff; }
+.u-toile { display: block; width: 100%; height: 100%; }
 .nom-ecrit { margin: 0; font-size: 2.3em; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; transition: color 0.5s; }
 .nom-ecrit.pose { color: var(--vert); }
 .nom-ecrit .reste { visibility: hidden; }
@@ -284,6 +283,10 @@ a { color: inherit; }
 }
 .c-belmont img { position: absolute; inset: 6.6% 0 0; height: 93.4%; opacity: 0; transition: opacity 0.8s; }
 .c-belmont img.vue { opacity: 1; }
+.c-belmont { transition: background 0.8s; }
+.doigt { position: absolute; left: 72%; top: 104%; width: 2.5em; height: 2.5em; margin: -1.25em; border-radius: 50%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.25); opacity: 0; transition: left 0.7s cubic-bezier(0.5, 0, 0.2, 1), top 0.7s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.3s, transform 0.14s; }
+.doigt.la { opacity: 1; }
+.doigt.tape { transform: scale(0.72); background: rgba(255, 255, 255, 0.8); }
 
 .c-teams, .c-stories, .c-powerbi { display: flex; flex-direction: column; background: #f5f5f5; }
 .vue-zone { flex: 1; min-height: 0; overflow: hidden; }
