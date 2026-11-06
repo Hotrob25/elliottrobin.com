@@ -1,6 +1,4 @@
 
-@property --h { syntax: "<length>"; inherits: true; initial-value: 0px; }
-
 :root {
   --fond-haut: #102612;
   --fond-bas: #040a05;
@@ -55,7 +53,19 @@ a { color: inherit; }
 .accueil .qui .n, .accueil .qui .p { opacity: 0; transition: none; }
 .qui h1 { margin: 0; font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
 .qui .p { display: block; margin-top: 2px; font-size: 15px; font-weight: 500; letter-spacing: 0; }
-.intro { margin: 0 0 16px; max-width: 500px; font-size: 14px; line-height: 1.4; color: var(--doux); text-wrap: balance; }
+.qui { position: relative; }
+.mot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: opacity 0.5s ease 0.3s, transform 0.8s cubic-bezier(0.65, 0, 0.15, 1) 0.1s, filter 0.5s ease 0.3s;
+}
+.part .mot, body:not(.accueil) .mot { opacity: 0; transform: translateY(-8px); filter: blur(5px); }
 
 .projets { list-style: none; margin: 0; padding: 0; }
 .projets > li { border-top: 1px solid var(--filet); }
@@ -438,8 +448,7 @@ a { color: inherit; }
 @media (max-width: 760px) {
   html, body { background: var(--fond-mobile); }
   .scene { display: flex; flex-direction: column; align-items: stretch; padding: 0; overflow: clip; }
-  .cote, .liste { display: contents; }
-  .intro { max-width: none; margin: 0 28px 14px; text-align: center; }
+  .cote { display: contents; }
   .qui {
     position: fixed;
     z-index: 3;
@@ -452,6 +461,7 @@ a { color: inherit; }
     height: 42px;
     pointer-events: none;
   }
+  .mot { right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; }
   .qui h1 { font-size: 17px; white-space: nowrap; }
   .qui .p { display: inline; margin: 0 0 0 7px; font-size: 14px; font-weight: 400; color: var(--doux); }
   .socle {
@@ -464,11 +474,9 @@ a { color: inherit; }
     justify-content: center;
     padding: calc(env(safe-area-inset-top) + 42px) 0 26px;
     background: var(--fond-mobile);
-    transition: --h 1.1s cubic-bezier(0.65, 0, 0.15, 1), padding-top 1.1s cubic-bezier(0.65, 0, 0.15, 1);
     -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 18px), transparent);
     mask-image: linear-gradient(180deg, #000 calc(100% - 18px), transparent);
   }
-    .accueil:not(.part) .socle { --h: calc(min(45svh, 100vw) + 34px); padding-top: calc(env(safe-area-inset-top) + 8px); }
     .socle::before { inset: 0; width: auto; aspect-ratio: auto; transform: none; }
   .phone { box-shadow: 0 0 40px rgba(90, 190, 90, 0.2); }
   .projets { margin: 2px 16px 0; padding: 0 16px; border-radius: 18px; background: rgba(255, 255, 255, 0.055); }
@@ -477,7 +485,7 @@ a { color: inherit; }
   .projets > li:last-child { border-bottom: 0; }
   .titre-projet { padding: 14px 0; font-size: 16px; color: rgba(255, 255, 255, 0.84); }
   .pied { justify-content: center; padding: 24px 20px calc(92px + env(safe-area-inset-bottom)); }
-    .liste:has(.tiroir.ouvert) ~ .pied { padding-bottom: 50svh; }
+    .projets:has(.tiroir.ouvert) ~ .pied { padding-bottom: 50svh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
