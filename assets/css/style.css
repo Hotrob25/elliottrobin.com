@@ -210,7 +210,7 @@ a { color: inherit; }
   pointer-events: none;
   transition: opacity 0.3s;
 }
-.phone[data-scene="teams"] .statut, .phone[data-scene="stories"] .statut, .phone[data-scene="powerbi"] .statut { color: #fff; }
+.phone[data-scene="teams"] .statut, .phone[data-scene="stories"] .statut, .phone[data-scene="powerbi"] .statut, .phone[data-scene="methode"] .statut { color: #fff; }
 .phone[data-scene="clavier"] .statut, .phone[data-scene="clavier"] .indicateur { opacity: 0; }
 
 .phone > i {
@@ -285,7 +285,7 @@ a { color: inherit; }
 .c-belmont img { position: absolute; inset: 6.6% 0 0; height: 93.4%; opacity: 0; transition: opacity 0.8s; }
 .c-belmont img.vue { opacity: 1; }
 
-.c-teams, .c-stories, .c-powerbi { display: flex; flex-direction: column; background: #f5f5f5; }
+.c-teams, .c-stories, .c-powerbi, .c-methode { display: flex; flex-direction: column; background: #f5f5f5; }
 .vue-zone { flex: 1; min-height: 0; overflow: hidden; }
 .etape { display: flex; flex-direction: column; height: 100%; animation: fondu 0.4s both; }
 @keyframes fondu { from { opacity: 0; } }
@@ -347,6 +347,42 @@ a { color: inherit; }
 .ado-ligne.maj { background: #fff6d9; }
 .ado-ligne.maj em { color: #8a6500; font-weight: 700; }
 @keyframes pop { from { opacity: 0; transform: translateY(-0.8em) scale(0.92); } }
+
+.c-methode .t-entete, .c-methode .bulle.moi { background: #2b2f4a; }
+.c-methode .t-ligne { align-items: center; margin-bottom: 1em; font-size: 1em; }
+.c-methode .t-ligne i { background: #e4e5ec; color: #2b2f4a; width: 2.8em; height: 2.8em; font-size: 0.66em; }
+.c-methode .t-ligne i.moi { background: #2b2f4a; color: #fff; }
+.c-methode .carte-po small { color: #2b2f4a; }
+.carte-po.refaite .boutons .non { background: #b3402e; color: #fff; box-shadow: none; }
+.carte-po.refaite .boutons .oui { opacity: 0.3; }
+.m-liste { padding: 5% 5%; }
+.m-ligne { display: flex; justify-content: space-between; align-items: center; gap: 0.5em; margin-bottom: 0.55em; padding: 0.7em 0.8em; background: #fff; border-radius: 0.7em; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); font-size: 0.88em; color: #999; transition: color 0.3s; }
+.m-ligne em { font-style: normal; font-size: 0.85em; font-weight: 700; color: var(--vert); opacity: 0; transition: opacity 0.3s; }
+.m-ligne.ok { color: #111; }
+.m-ligne.ok em { opacity: 1; }
+
+.c-langues { --pas3: #237220; --pas2: #7baa79; --pas1: #bdd5bc; --pas0: #e9ebe7; display: flex; flex-direction: column; padding: 19% 6% 11%; background: #fff; color: #111; }
+.l-titre { margin: 0 0 1em; font-size: 1.3em; line-height: 1.15; font-weight: 700; color: var(--pas3); letter-spacing: -0.01em; }
+.l-chiffre { margin: 0; font-size: 3.1em; line-height: 1.05; font-weight: 700; color: var(--pas3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.l-phrase { min-height: 2.7em; margin: 0.4em 0 1em; font-size: 0.95em; line-height: 1.3; color: #444; }
+.l-phrase b { color: var(--pas3); font-weight: 700; }
+.l-carte { margin: 0 -4%; }
+.l-carte svg { display: block; width: 100%; height: auto; }
+.l-carte path { fill: var(--pas0); stroke: #fff; stroke-width: 0.5; transition: fill 0.6s ease; }
+.l-carte path.pas3 { fill: var(--pas3); }
+.l-carte path.pas2 { fill: var(--pas2); }
+.l-carte path.pas1 { fill: var(--pas1); }
+.l-carte path.pas0 { fill: var(--pas0); }
+.l-puces { display: flex; flex-wrap: wrap; gap: 0.45em; margin: 1.4em 0 0; padding: 0; list-style: none; font-size: 0.82em; }
+.l-puces li { padding: 0.25em 0.7em; border-radius: 999px; box-shadow: inset 0 0 0 1px #d8dcd6; color: #555; text-transform: capitalize; transition: background 0.3s, color 0.3s, box-shadow 0.3s; }
+.l-puces li.active { background: var(--pas3); color: #fff; box-shadow: none; }
+.l-legende { margin: auto 0 0.35em; font-size: 0.72em; font-weight: 600; color: #666; }
+.l-echelle { display: flex; gap: 0.9em; margin: 0; padding: 0; list-style: none; font-size: 0.72em; color: #666; }
+.l-echelle li { display: flex; align-items: center; gap: 0.3em; white-space: nowrap; }
+.l-echelle i { width: 0.8em; height: 0.8em; border-radius: 0.2em; }
+.l-echelle .pas3 { background: var(--pas3); }
+.l-echelle .pas2 { background: var(--pas2); }
+.l-echelle .pas1 { background: var(--pas1); }
 
 .c-powerbi { --reel: #d98a1f; --projete: #7a3e9d; background: #f3f2f1; }
 .c-powerbi .fil li.fait { border-color: var(--reel); }

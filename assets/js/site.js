@@ -10,6 +10,14 @@
   var MOYENNES = [3.79,3.52,3.75,3.58,3.64,3.58,3.79,3.77,3.85,3.76,4.1,4.04,3.89,3.84,3.92,3.89,3.81,3.81,3.93,4.08,3.95,3.96,3.85,3.86,3.96,4.01,4.0,3.94,4.23,4.0];
   var VOLUMES = [21,50,45,21,54,62,50,61,44,18,38,42,65,20,68,52,98,166,97,74,51,70,95,78,113,110,81,72,33,11];
   var PICTO = '<svg class="picto-agent" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="#2b2f4a"/><path d="M3 32c0-6 4.6-9.2 10-10.2l3 2.2 3-2.2c5.4 1 10 4.2 10 10.200z" fill="#0d0e13"/><path d="M12.8 21.7 16 28l3.2-6.300z" fill="#fff"/><path d="M15 23.300h2l.5 1.1-.8 4.400h-1.400l-.8-4.400z" fill="#0d0e13"/><path d="M13.6 17h4.800v5.200L16 24l-2.4-1.800z" fill="#d9a67c"/><ellipse cx="16" cy="12.8" rx="6.6" ry="7.6" fill="#eebd93"/><path d="M9.2 12.400C8.4 6.6 11.8 3.6 16.5 3.600c4.8 0 7.2 3.2 6.3 8.8-.5-2.3-1.5-3.7-3.2-4.4-3.2 1-6.9.8-8.4.4-.9.9-1.6 2.1-2 4z" fill="#14110e"/><path d="M8.6 11.300h14.8" stroke="#08080a" stroke-width="1.1"/><path d="M9 11.300h6.300c.3 0 .5.2.5.5 0 2.6-1.1 4.5-3.5 4.5-2.2 0-3.6-1.9-3.7-4.5 0-.3.1-.5.4-.5zM16.2 11.800c0-.3.2-.5.5-.5H23c.3 0 .4.2.4.5-.1 2.6-1.5 4.5-3.7 4.5-2.4 0-3.5-1.9-3.5-4.500z" fill="#08080a"/><path d="M10.6 14.600l2.4-2.400M18 14.600l2.4-2.4" stroke="#fff" stroke-width="0.8" stroke-linecap="round" opacity="0.8"/><path d="M14.4 18.2c1.3.3 2.6.1 3.8-.8" fill="none" stroke="#6e3f24" stroke-width="0.7" stroke-linecap="round"/><path d="M22.7 13.800c.9.3 1 1.3.7 2.3-.4 1.5-.3 3.6.6 5.4" fill="none" stroke="#dfe2ea" stroke-width="0.6" stroke-linecap="round"/></svg>';
+  function chargerCarte(fini) {
+    if (window.CARTE_LANGUES) { fini(); return; }
+    var s = document.createElement('script');
+    s.src = racine + 'assets/js/carte-langues.js';
+    s.onload = fini;
+    document.head.appendChild(s);
+  }
+  var INTERPRETES = [['FR', 'Même règle : on mesure d’abord.'], ['EN', 'Same rule: measure first.'], ['ES', 'Misma regla: medir primero.'], ['DE', 'Gleiche Regel: erst messen.'], ['IT', 'Stessa regola: prima si misura.']];
   var NOTE = '3.98';
 
   var T = en
@@ -40,6 +48,13 @@
       barreMac: 'Mac menu bar',
       frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
       perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
+      lTitre: 'What language does the world write in?', lPhrase: function (m, l) { return '<b>' + m + ' million people</b> write every day in ' + l + '.'; },
+      lNoms: { fr: 'French', en: 'English', es: 'Spanish', zh: 'Mandarin', hi: 'Hindi', ar: 'Arabic' }, lDepart: 'en', lLegende: 'Share who write in this language',
+      mFil: ['Decision', 'Checks', 'TestFlight', 'Interpreters'], mAgent: 'My agent', mAttend: 'Waiting for my decision',
+      mChat: [['agent', 'Two options are equal. Your call.'], ['moi', 'The second. Measure it on real data.'], ['agent', 'Measured. Nothing ships without your OK.']],
+      mControles: 'Checks', mAvant: 'Before it reaches me', mListe: ['Automated tests', 'Measurement benches', 'Language coverage', 'Project rules'], mReussi: 'Passed',
+      mTest: 'I try it myself', mEssais: [['Trial 1', 'The correction comes too late'], ['Trial 2', 'The correction comes at the right moment']], mValide: 'Approve', mRefaire: 'Redo',
+      mInterpretes: 'Interpreters', mMeme: 'Same rigor in every language',
       chrono: 'Worked today', statsChrono: ['Billable', 'Sessions', 'This week', 'Rounding'], arrondi: '¼ hour', frise: 'The day'
     }
     : {
@@ -69,6 +84,13 @@
       barreMac: 'Barre d’état du Mac',
       frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
       perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
+      lTitre: 'Dans quelle langue le monde écrit-il ?', lPhrase: function (m, l) { return '<b>' + m + ' millions de personnes</b> écrivent au quotidien en ' + l + '.'; },
+      lNoms: { fr: 'français', en: 'anglais', es: 'espagnol', zh: 'mandarin', hi: 'hindi', ar: 'arabe' }, lDepart: 'fr', lLegende: 'Part qui écrit dans cette langue',
+      mFil: ['Décision', 'Contrôles', 'TestFlight', 'Interprètes'], mAgent: 'Mon agent', mAttend: 'Attend ma décision',
+      mChat: [['agent', 'Deux options se valent. À toi de trancher.'], ['moi', 'La deuxième. Mesure-la sur du réel.'], ['agent', 'Mesuré. Rien ne sort sans ton accord.']],
+      mControles: 'Contrôles', mAvant: 'Avant que ça me parvienne', mListe: ['Tests automatisés', 'Bancs de mesure', 'Couverture des langues', 'Règles du projet'], mReussi: 'Réussi',
+      mTest: 'Je l’essaie moi-même', mEssais: [['Essai 1', 'La correction arrive trop tard'], ['Essai 2', 'La correction arrive au bon moment']], mValide: 'Je valide', mRefaire: 'À refaire',
+      mInterpretes: 'Interprètes', mMeme: 'La même rigueur dans chaque langue',
       chrono: 'Travaillé aujourd’hui', statsChrono: ['Facturable', 'Séances', 'Cette semaine', 'Arrondi'], arrondi: '¼ d’heure', frise: 'La journée'
     };
 
@@ -120,6 +142,61 @@
       var essai = v.play();
       if (essai && essai.catch) essai.catch(repli);
       apres(1500, function () { if (v.currentTime < 0.1) repli(); });
+    },
+
+    langues: function (c) {
+      c.innerHTML = '<h4 class="l-titre">' + T.lTitre + '</h4><p class="l-chiffre"></p><p class="l-phrase"></p><div class="l-carte"></div><ul class="l-puces"></ul><p class="l-legende">' + T.lLegende + '</p><ul class="l-echelle"><li><i class="pas3"></i>≥ ' + pct(80) + '</li><li><i class="pas2"></i>40–' + pct(79) + '</li><li><i class="pas1"></i>15–' + pct(39) + '</li></ul>';
+      chargerCarte(function () {
+        if (!ecran.contains(c)) return;
+        var d = window.CARTE_LANGUES;
+        var ordre = [T.lDepart].concat(d.langues.filter(function (k) { return k !== T.lDepart; }));
+        c.querySelector('.l-carte').innerHTML = '<svg viewBox="' + d.vue + '" role="img" aria-label="' + T.lTitre + '">' + d.chemins.map(function (p) { return '<path d="' + p + '"/>'; }).join('') + '</svg>';
+        var formes = c.querySelectorAll('.l-carte path');
+        var puces = c.querySelector('.l-puces');
+        puces.innerHTML = ordre.map(function (k) { return '<li>' + T.lNoms[k] + '</li>'; }).join('');
+        function langue(i) {
+          var k = ordre[i], rang = d.langues.indexOf(k), part = d.pourcents[k].toLocaleString(T.locale, { minimumFractionDigits: 1 });
+          formes.forEach(function (f, n) { f.setAttribute('class', 'pas' + d.parts[n].charAt(rang)); });
+          c.querySelector('.l-chiffre').textContent = pct(part);
+          c.querySelector('.l-phrase').innerHTML = T.lPhrase(nombre(d.millions[k]), T.lNoms[k]);
+          for (var n = 0; n < puces.children.length; n++) puces.children[n].classList.toggle('active', n === i);
+          if (!calme) apres(3200, function () { langue((i + 1) % ordre.length); });
+        }
+        langue(0);
+      });
+    },
+
+    methode: function (c) {
+      var aller = fil(c, T.mFil);
+      var vue = aller(0, enteteAgent(T.mAgent, T.mAttend) + '<div class="chat"></div>');
+      T.mChat.forEach(function (m, i) {
+        apres(300 + i * 850, function () {
+          vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour ' + m[0] + '">' + (m[0] === 'agent' ? PICTO : '') + '<div><div class="bulle ' + m[0] + '">' + m[1] + '</div></div></div>');
+        });
+      });
+      apres(3600, function () {
+        vue = aller(1, '<div class="t-entete"><b>' + T.mControles + '</b><span>' + T.mAvant + '</span></div><div class="m-liste">' + T.mListe.map(function (l) { return '<div class="m-ligne"><span>' + l + '</span><em>' + T.mReussi + '</em></div>'; }).join('') + '</div>');
+        T.mListe.forEach(function (l, i) {
+          apres(300 + i * 450, function () { vue.querySelectorAll('.m-ligne')[i].classList.add('ok'); });
+        });
+      });
+      apres(6400, function () {
+        vue = aller(2, '<div class="t-entete"><b>TestFlight</b><span>' + T.mTest + '</span></div><div class="t-cartes"></div>');
+        T.mEssais.forEach(function (k, i) {
+          apres(200 + i * 1500, function () {
+            vue.querySelector('.t-cartes').insertAdjacentHTML('beforeend', '<div class="carte-po"><small>' + k[0] + '</small><b>' + k[1] + '</b><div class="boutons"><span class="oui">' + T.mValide + '</span><span class="non">' + T.mRefaire + '</span></div></div>');
+          });
+          apres(1000 + i * 1500, function () { vue.querySelectorAll('.carte-po')[i].classList.add(i ? 'faite' : 'refaite'); });
+        });
+      });
+      apres(10000, function () {
+        vue = aller(3, '<div class="t-entete"><b>' + T.mInterpretes + '</b><span>' + T.mMeme + '</span></div><div class="t-lignes"></div>');
+        INTERPRETES.forEach(function (l, i) {
+          apres(300 + i * 600, function () {
+            vue.querySelector('.t-lignes').insertAdjacentHTML('beforeend', '<div class="t-ligne"><i' + (i ? '' : ' class="moi"') + '>' + l[0] + '</i><span lang="' + l[0].toLowerCase() + '">' + l[1] + '</span></div>');
+          });
+        });
+      });
     },
 
     belmont: function (c) {
