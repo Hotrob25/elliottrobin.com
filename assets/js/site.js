@@ -13,11 +13,12 @@
   function chargerCarte(fini) {
     if (window.CARTE_LANGUES) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/carte-langues.js';
+    s.src = racine + 'assets/js/carte-langues.js?v=ef06490bfd';
     s.onload = fini;
     document.head.appendChild(s);
   }
-  var INTERPRETES = [['FR', 'Même règle : on mesure d’abord.'], ['EN', 'Same rule: measure first.'], ['ES', 'Misma regla: medir primero.'], ['DE', 'Gleiche Regel: erst messen.'], ['IT', 'Stessa regola: prima si misura.']];
+  var BONJOUR = { fr: 'Bonjour', en: 'Hello', es: 'Hola', zh: '你好', hi: 'नमस्ते', ar: 'مرحبا' };
+  var INTERPRETES = [['EN', 'Understood'], ['ES', 'Entendido'], ['PT', 'Entendido'], ['IT', 'Capito'], ['DE', 'Verstanden'], ['NL', 'Begrepen'], ['SV', 'Uppfattat'], ['DA', 'Forstået'], ['NB', 'Forstått'], ['NN', 'Forstått'], ['FI', 'Selvä'], ['IS', 'Skilið']];
   var NOTE = '3.98';
 
   var T = en
@@ -51,9 +52,9 @@
       lTitre: 'What language does the world write in?', lPhrase: function (m, l) { return '<b>' + m + ' million people</b> write every day in ' + l + '.'; },
       lNoms: { fr: 'French', en: 'English', es: 'Spanish', zh: 'Mandarin', hi: 'Hindi', ar: 'Arabic' }, lDepart: 'en', lLegende: 'Share who write in this language',
       mFil: ['Decision', 'Checks', 'TestFlight', 'Interpreters'], mAgent: 'My agent', mAttend: 'Waiting for my decision',
-      mChat: [['agent', 'Two options are equal. Your call.'], ['moi', 'The second. Measure it on real data.'], ['agent', 'Measured. Nothing ships without your OK.']],
-      mControles: 'Checks', mAvant: 'Before it reaches me', mListe: ['Automated tests', 'Measurement benches', 'Language coverage', 'Project rules'], mReussi: 'Passed',
-      mTest: 'I try it myself', mEssais: [['Trial 1', 'The correction comes too late'], ['Trial 2', 'The correction comes at the right moment']], mValide: 'Approve', mRefaire: 'Redo',
+      mChat: ['Two options are equal. Your call.', 'Noted. Nothing ships without your OK.'],
+      mControles: 'Checks', mAvant: 'Before it reaches me', mTests: 'automated tests', mListe: ['Measurement benches', 'Language coverage', 'Project rules', 'Report read'],
+      mTest: 'I try it myself', mEssais: [['Trial 1', 'The correction comes too late'], ['Trial 2', 'The correction comes at the right moment']], mValide: 'Approved', mRefaire: 'Redo',
       mInterpretes: 'Interpreters', mMeme: 'Same rigor in every language',
       chrono: 'Worked today', statsChrono: ['Billable', 'Sessions', 'This week', 'Rounding'], arrondi: '¼ hour', frise: 'The day'
     }
@@ -87,9 +88,9 @@
       lTitre: 'Dans quelle langue le monde écrit-il ?', lPhrase: function (m, l) { return '<b>' + m + ' millions de personnes</b> écrivent au quotidien en ' + l + '.'; },
       lNoms: { fr: 'français', en: 'anglais', es: 'espagnol', zh: 'mandarin', hi: 'hindi', ar: 'arabe' }, lDepart: 'fr', lLegende: 'Part qui écrit dans cette langue',
       mFil: ['Décision', 'Contrôles', 'TestFlight', 'Interprètes'], mAgent: 'Mon agent', mAttend: 'Attend ma décision',
-      mChat: [['agent', 'Deux options se valent. À toi de trancher.'], ['moi', 'La deuxième. Mesure-la sur du réel.'], ['agent', 'Mesuré. Rien ne sort sans ton accord.']],
-      mControles: 'Contrôles', mAvant: 'Avant que ça me parvienne', mListe: ['Tests automatisés', 'Bancs de mesure', 'Couverture des langues', 'Règles du projet'], mReussi: 'Réussi',
-      mTest: 'Je l’essaie moi-même', mEssais: [['Essai 1', 'La correction arrive trop tard'], ['Essai 2', 'La correction arrive au bon moment']], mValide: 'Je valide', mRefaire: 'À refaire',
+      mChat: ['Deux options se valent. À toi de trancher.', 'Noté. Rien ne sort sans ton accord.'],
+      mControles: 'Contrôles', mAvant: 'Avant que ça me parvienne', mTests: 'tests automatisés', mListe: ['Bancs de mesure', 'Couverture des langues', 'Règles du projet', 'Compte rendu lu'],
+      mTest: 'Je l’essaie moi-même', mEssais: [['Essai 1', 'La correction arrive trop tard'], ['Essai 2', 'La correction arrive au bon moment']], mValide: 'Validé', mRefaire: 'À refaire',
       mInterpretes: 'Interprètes', mMeme: 'La même rigueur dans chaque langue',
       chrono: 'Travaillé aujourd’hui', statsChrono: ['Facturable', 'Séances', 'Cette semaine', 'Arrondi'], arrondi: '¼ d’heure', frise: 'La journée'
     };
@@ -145,22 +146,33 @@
     },
 
     langues: function (c) {
-      c.innerHTML = '<h4 class="l-titre">' + T.lTitre + '</h4><p class="l-chiffre"></p><p class="l-phrase"></p><div class="l-carte"></div><ul class="l-puces"></ul><p class="l-legende">' + T.lLegende + '</p><ul class="l-echelle"><li><i class="pas3"></i>≥ ' + pct(80) + '</li><li><i class="pas2"></i>40–' + pct(79) + '</li><li><i class="pas1"></i>15–' + pct(39) + '</li></ul>';
+      c.innerHTML = '<h4 class="l-titre">' + T.lTitre + '</h4><p class="l-mot"><span></span><i></i></p><div class="l-carte"><b class="l-balai"></b></div><p class="l-chiffre"></p><p class="l-phrase"></p><ul class="l-puces"></ul><p class="l-legende">' + T.lLegende + '</p><ul class="l-echelle"><li><i class="pas3"></i>≥ ' + pct(80) + '</li><li><i class="pas2"></i>40–' + pct(79) + '</li><li><i class="pas1"></i>15–' + pct(39) + '</li></ul>';
       chargerCarte(function () {
         if (!ecran.contains(c)) return;
         var d = window.CARTE_LANGUES;
         var ordre = [T.lDepart].concat(d.langues.filter(function (k) { return k !== T.lDepart; }));
-        c.querySelector('.l-carte').innerHTML = '<svg viewBox="' + d.vue + '" role="img" aria-label="' + T.lTitre + '">' + d.chemins.map(function (p) { return '<path d="' + p + '"/>'; }).join('') + '</svg>';
+        var cadre = d.vue.split(' ').map(Number);
+        c.querySelector('.l-carte').insertAdjacentHTML('afterbegin', '<svg viewBox="' + d.vue + '" role="img" aria-label="' + T.lTitre + '">' + d.chemins.map(function (p) { return '<path d="' + p + '"/>'; }).join('') + '</svg>');
         var formes = c.querySelectorAll('.l-carte path');
-        var puces = c.querySelector('.l-puces');
+        formes.forEach(function (f) { f.style.transitionDelay = Math.round((f.getBBox().x - cadre[0]) / cadre[2] * 1000) + 'ms'; });
+        var puces = c.querySelector('.l-puces'), mot = c.querySelector('.l-mot span'), chiffre = c.querySelector('.l-chiffre'), phrase = c.querySelector('.l-phrase');
         puces.innerHTML = ordre.map(function (k) { return '<li>' + T.lNoms[k] + '</li>'; }).join('');
+        function ecrit(n) { return n.toLocaleString(T.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }); }
         function langue(i) {
-          var k = ordre[i], rang = d.langues.indexOf(k), part = d.pourcents[k].toLocaleString(T.locale, { minimumFractionDigits: 1 });
+          var k = ordre[i], rang = d.langues.indexOf(k), lettres = Array.from(BONJOUR[k]);
+          mot.textContent = '';
+          lettres.forEach(function (l, n) {
+            apres(n * 95, function () { mot.textContent = lettres.slice(0, n + 1).join(''); });
+          });
           formes.forEach(function (f, n) { f.setAttribute('class', 'pas' + d.parts[n].charAt(rang)); });
-          c.querySelector('.l-chiffre').textContent = pct(part);
-          c.querySelector('.l-phrase').innerHTML = T.lPhrase(nombre(d.millions[k]), T.lNoms[k]);
+          var balai = c.querySelector('.l-balai'), neuf = balai.cloneNode();
+          balai.parentNode.replaceChild(neuf, balai);
+          for (var s = 1; s <= 16; s++) {
+            (function (s) { apres(s * 60, function () { chiffre.textContent = pct(ecrit(d.pourcents[k] * s / 16)); }); })(s);
+          }
+          phrase.innerHTML = T.lPhrase(nombre(d.millions[k]), T.lNoms[k]);
           for (var n = 0; n < puces.children.length; n++) puces.children[n].classList.toggle('active', n === i);
-          if (!calme) apres(3200, function () { langue((i + 1) % ordre.length); });
+          if (!calme) apres(4000, function () { langue((i + 1) % ordre.length); });
         }
         langue(0);
       });
@@ -169,33 +181,72 @@
     methode: function (c) {
       var aller = fil(c, T.mFil);
       var vue = aller(0, enteteAgent(T.mAgent, T.mAttend) + '<div class="chat"></div>');
-      T.mChat.forEach(function (m, i) {
-        apres(300 + i * 850, function () {
-          vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour ' + m[0] + '">' + (m[0] === 'agent' ? PICTO : '') + '<div><div class="bulle ' + m[0] + '">' + m[1] + '</div></div></div>');
-        });
+      function agent(html, classe) {
+        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour agent ' + (classe || '') + '">' + PICTO + '<div><div class="bulle agent">' + html + '</div></div></div>');
+      }
+      function repond(texte) {
+        var points = vue.querySelector('.m-points');
+        if (points) points.remove();
+        agent(texte);
+      }
+      apres(200, function () { agent('<i></i><i></i><i></i>', 'm-points'); });
+      apres(1000, function () { repond(T.mChat[0]); });
+      apres(1500, function () {
+        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="m-options"><span>A</span><span>B</span></div>');
       });
-      apres(3600, function () {
-        vue = aller(1, '<div class="t-entete"><b>' + T.mControles + '</b><span>' + T.mAvant + '</span></div><div class="m-liste">' + T.mListe.map(function (l) { return '<div class="m-ligne"><span>' + l + '</span><em>' + T.mReussi + '</em></div>'; }).join('') + '</div>');
+      apres(2600, function () { vue.querySelectorAll('.m-options span')[1].classList.add('choisie'); });
+      apres(3200, function () { agent('<i></i><i></i><i></i>', 'm-points'); });
+      apres(3900, function () { repond(T.mChat[1]); });
+
+      apres(5200, function () {
+        vue = aller(1, '<div class="t-entete"><b>' + T.mControles + '</b><span>' + T.mAvant + '</span></div><div class="m-jauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="fond" cx="50" cy="50" r="44" pathLength="100"/><circle class="arc" cx="50" cy="50" r="44" pathLength="100"/></svg><p><b>0</b><span>' + T.mTests + '</span></p></div><div class="m-liste">' +
+          T.mListe.map(function (l) { return '<div class="m-ligne"><span>' + l + '</span><svg viewBox="0 0 16 16" aria-hidden="true"><path pathLength="1" d="M3 8.5 6.5 12 13 4.5"/></svg></div>'; }).join('') + '</div>');
+        apres(80, function () { vue.querySelector('.m-jauge .arc').classList.add('pleine'); });
+        for (var s = 1; s <= 21; s++) {
+          (function (s) { apres(s * 70, function () { vue.querySelector('.m-jauge b').textContent = nombre(s * 100) + (s === 21 ? '+' : ''); }); })(s);
+        }
         T.mListe.forEach(function (l, i) {
-          apres(300 + i * 450, function () { vue.querySelectorAll('.m-ligne')[i].classList.add('ok'); });
+          apres(500 + i * 420, function () { vue.querySelectorAll('.m-ligne')[i].classList.add('ok'); });
         });
       });
-      apres(6400, function () {
+
+      apres(8900, function () {
         vue = aller(2, '<div class="t-entete"><b>TestFlight</b><span>' + T.mTest + '</span></div><div class="t-cartes"></div>');
         T.mEssais.forEach(function (k, i) {
           apres(200 + i * 1500, function () {
-            vue.querySelector('.t-cartes').insertAdjacentHTML('beforeend', '<div class="carte-po"><small>' + k[0] + '</small><b>' + k[1] + '</b><div class="boutons"><span class="oui">' + T.mValide + '</span><span class="non">' + T.mRefaire + '</span></div></div>');
+            vue.querySelector('.t-cartes').insertAdjacentHTML('beforeend', '<div class="carte-po m-essai"><small>' + k[0] + '</small><b>' + k[1] + '</b><em class="m-tampon ' + (i ? 'oui' : 'non') + '">' + (i ? T.mValide : T.mRefaire) + '</em></div>');
           });
-          apres(1000 + i * 1500, function () { vue.querySelectorAll('.carte-po')[i].classList.add(i ? 'faite' : 'refaite'); });
+          apres(900 + i * 1500, function () { vue.querySelectorAll('.m-tampon')[i].classList.add('vu'); });
         });
       });
-      apres(10000, function () {
-        vue = aller(3, '<div class="t-entete"><b>' + T.mInterpretes + '</b><span>' + T.mMeme + '</span></div><div class="t-lignes"></div>');
-        INTERPRETES.forEach(function (l, i) {
-          apres(300 + i * 600, function () {
-            vue.querySelector('.t-lignes').insertAdjacentHTML('beforeend', '<div class="t-ligne"><i' + (i ? '' : ' class="moi"') + '>' + l[0] + '</i><span lang="' + l[0].toLowerCase() + '">' + l[1] + '</span></div>');
+
+      apres(12400, function () {
+        var points = INTERPRETES.map(function (l, i) {
+          var a = (i * 30 - 90) * Math.PI / 180;
+          return [Math.round(100 + 80 * Math.cos(a)), Math.round(100 + 80 * Math.sin(a))];
+        });
+        vue = aller(3, '<div class="t-entete"><b>' + T.mInterpretes + '</b><span>' + T.mMeme + '</span></div><div class="m-reseau"><svg viewBox="0 0 200 200" aria-hidden="true">' +
+          points.map(function (p) { return '<line x1="100" y1="100" x2="' + p[0] + '" y2="' + p[1] + '"/>'; }).join('') +
+          points.map(function (p, i) { return '<g class="noeud" transform="translate(' + p[0] + ' ' + p[1] + ')"><circle r="15"/><text y="3.6">' + INTERPRETES[i][0] + '</text></g>'; }).join('') +
+          '<g transform="translate(100 100)"><circle class="centre" r="23"/><text class="centre" y="5">FR</text></g>' +
+          points.map(function () { return '<circle class="impulsion" r="4"/>'; }).join('') +
+          '</svg><p class="m-dit"></p></div>');
+        var liens = vue.querySelectorAll('line'), noeuds = vue.querySelectorAll('.noeud'), impulsions = vue.querySelectorAll('.impulsion'), dit = vue.querySelector('.m-dit');
+        points.forEach(function (p, i) {
+          apres(350 + i * 340, function () {
+            if (calme) return;
+            impulsions[i].animate([
+              { transform: 'translate(100px, 100px)', opacity: 1 },
+              { transform: 'translate(' + p[0] + 'px, ' + p[1] + 'px)', opacity: 1 }
+            ], { duration: 400, easing: 'ease-in' });
+          });
+          apres(750 + i * 340, function () {
+            liens[i].classList.add('ok');
+            noeuds[i].classList.add('ok');
+            dit.textContent = INTERPRETES[i][1];
           });
         });
+        if (!calme) apres(5900, function () { scenes.methode(c); });
       });
     },
 
