@@ -55,6 +55,7 @@ a { color: inherit; }
 .accueil .qui .n, .accueil .qui .p { opacity: 0; transition: none; }
 .qui h1 { margin: 0; font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
 .qui .p { display: block; margin-top: 2px; font-size: 15px; font-weight: 500; letter-spacing: 0; }
+.intro { margin: 12px 0 0; max-width: 500px; font-size: 14px; line-height: 1.4; color: var(--doux); text-wrap: balance; }
 
 .projets { list-style: none; margin: 0; padding: 0; }
 .projets > li { border-top: 1px solid var(--filet); }
@@ -436,7 +437,8 @@ a { color: inherit; }
 @media (max-width: 760px) {
   html, body { background: var(--fond-mobile); }
   .scene { display: flex; flex-direction: column; align-items: stretch; padding: 0; overflow: clip; }
-  .cote { display: contents; }
+  .cote, .tete { display: contents; }
+  .intro { max-width: none; margin: 0 28px 14px; text-align: center; }
   .qui {
     position: fixed;
     z-index: 3;
