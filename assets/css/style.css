@@ -315,6 +315,11 @@ a { color: inherit; }
 .carte-po.faite .boutons span:not(.oui) { opacity: 0.3; }
 
 .chat { display: flex; flex-direction: column; gap: 0.5em; padding: 5% 5%; }
+.c-stories .chat { flex: 1; min-height: 0; justify-content: flex-end; overflow: hidden; }
+.c-stories .tour, .c-stories .carte-po { flex: none; }
+.carte-adaptative { align-self: flex-start; width: 86%; margin: 0 0 0 2.3em; border-left: 0.25em solid #4b53bc; }
+.carte-adaptative p { margin: 0 0 0.5em; font-size: 0.92em; color: #444; }
+.carte-adaptative .meta { display: block; margin-bottom: 0.65em; font-size: 0.82em; color: #8a8d92; }
 .bulle { max-width: 84%; padding: 0.5em 0.75em; border-radius: 0.9em; font-size: 0.88em; line-height: 1.3; animation: entre 0.3s both; }
 .bulle.agent { align-self: flex-start; background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
 .bulle.moi { align-self: flex-end; background: #4b53bc; color: #fff; }
@@ -326,13 +331,6 @@ a { color: inherit; }
 .tour .picto-agent { flex: none; width: 1.9em; height: 1.9em; }
 
 
-.pa-entete { padding: 16% 7% 4%; background: #0d47a1; color: #fff; }
-.pa-entete b { display: block; font-size: 1.1em; }
-.pa-entete span { font-size: 0.85em; opacity: 0.9; }
-.flux { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 8%; }
-.noeud { position: relative; width: 100%; margin-bottom: 1.3em; padding: 0.6em 0.7em; background: #fff; border-radius: 0.4em; border-left: 0.25em solid #cfcfcf; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); font-size: 0.85em; line-height: 1.25; color: #9a9a9a; transition: color 0.25s, border-color 0.25s; }
-.noeud:not(:last-child)::after { content: ""; position: absolute; left: 50%; bottom: -1.3em; width: 1px; height: 1.3em; background: #c9c9c9; }
-.noeud.fait { color: #111; border-color: #0078d4; }
 
 .ado-entete { padding: 16% 7% 4%; background: #0078d4; color: #fff; }
 .ado-entete b { display: block; font-size: 1.1em; }

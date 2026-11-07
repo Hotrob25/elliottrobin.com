@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=10de566211';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=f75445fd35';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -28,12 +28,13 @@
       moi: 'Me', lignes: [['Me', 'Clients want to filter the report by date.'], ['JT', 'And the export label is still wrong.'], ['Me', 'Let’s fix that in this sprint.'], ['agent', 'Got it. Preparing 2 cards for the PO.']],
       nomTranscription: 'Transcript agent', nomBacklog: 'Backlog agent', agent: 'In Teams', pour: 'For the Product Owner',
       cartes: [['New story', 'Filter the report by date'], ['Update to #1198', 'Fix the export label']], approuver: 'Approve', rejeter: 'Reject', approuve: 'Approved',
-      filTeams: ['Meeting', 'Card to PO', 'Backlog'], filStories: ['Teams chat', 'Flow', 'Backlog'],
+      filTeams: ['Meeting', 'Card to PO', 'Backlog'], filStories: ['Questions', 'Proposal', 'Backlog'],
       sprint: 'Backlog · current sprint', nouveau: 'New', actif: 'Active', maj: 'Updated',
       lignesBacklog: [['1204', 'Import the monthly file', 'Active'], ['1198', 'Fix the export label', 'Active'], ['1191', 'Add the status column', 'New']],
       nouvelle: ['1207', 'Filter the report by date'],
-      chat: [['moi', 'I need a story for the report'], ['agent', 'Who is it for?'], ['moi', 'Finance analysts'], ['agent', 'What should they be able to do?'], ['moi', 'Filter by date'], ['agent', 'Story ready. Sending it to the current sprint.']],
-      fluxTitre: 'Flow called by the agent', flux: ['When the agent calls the flow', 'Parse the request', 'Find the current sprint', 'Create or update?', 'Create a work item'],
+      chat: [['agent', 'What do you need?'], ['moi', 'Analysts want to filter the report by date.'], ['agent', 'What’s the impact of not doing it?'], ['moi', 'They export everything to Excel every week.'], ['agent', 'Who should it be assigned to?'], ['moi', 'Alex.'], ['agent', 'Current sprint?'], ['moi', 'Yes.'], ['agent', 'Here’s my proposal.']],
+      proposition: ['Story proposal', 'Filter the report by date', 'As an analyst, I want to filter the report by date so I no longer export everything to Excel.', 'Assigned to Alex · Current sprint'],
+      accepter: 'Accept', accepte: 'Accepted', envoye: 'Done. It’s in the backlog, in the current sprint.',
       compta: 'My accountant', etapes: ['Invoice generated', 'Receipt filed, deduction noted', 'Entry in the journal', 'Sales taxes calculated', 'Tax returns prepared', 'Deadlines added to the calendar'], ajour: 'Books up to date',
       comptaDit: 'What it tells me to do', aFaire: 'To do', aOptimiser: 'To optimize',
       rappels: [['Nov.', '30', 'GST and QST remittance', 'The amount is calculated, it just needs paying.'], ['Dec.', '15', 'Tax instalment', 'Set the money aside now.'], ['Apr.', '30', 'Tax return', 'Ready to file.']],
@@ -60,12 +61,13 @@
       moi: 'Moi', lignes: [['Moi', 'Les clients veulent filtrer le rapport par date.'], ['JT', 'Et le libellé de l’export est encore mauvais.'], ['Moi', 'On règle ça dans ce sprint.'], ['agent', 'C’est noté. Je prépare 2 cartes pour le PO.']],
       nomTranscription: 'Agent de transcription', nomBacklog: 'Agent du backlog', agent: 'Dans Teams', pour: 'Pour le Product Owner',
       cartes: [['Nouvelle story', 'Filtrer le rapport par date'], ['Mise à jour de #1198', 'Corriger le libellé de l’export']], approuver: 'Approuver', rejeter: 'Rejeter', approuve: 'Approuvée',
-      filTeams: ['Rencontre', 'Carte au PO', 'Backlog'], filStories: ['Conversation', 'Flux', 'Backlog'],
+      filTeams: ['Rencontre', 'Carte au PO', 'Backlog'], filStories: ['Questions', 'Proposition', 'Backlog'],
       sprint: 'Backlog · sprint courant', nouveau: 'Nouveau', actif: 'Actif', maj: 'Mise à jour',
       lignesBacklog: [['1204', 'Importer le fichier du mois', 'Actif'], ['1198', 'Corriger le libellé de l’export', 'Actif'], ['1191', 'Ajouter la colonne Statut', 'Nouveau']],
       nouvelle: ['1207', 'Filtrer le rapport par date'],
-      chat: [['moi', 'J’ai besoin d’une story pour le rapport'], ['agent', 'C’est pour qui ?'], ['moi', 'Les analystes finances'], ['agent', 'Que doivent-ils pouvoir faire ?'], ['moi', 'Filtrer par date'], ['agent', 'Story prête. Je l’envoie au sprint courant.']],
-      fluxTitre: 'Flux appelé par l’agent', flux: ['Quand l’agent appelle le flux', 'Analyser la demande', 'Trouver le sprint courant', 'Créer ou mettre à jour ?', 'Créer l’élément de travail'],
+      chat: [['agent', 'Quel est ton besoin ?'], ['moi', 'Les analystes veulent filtrer le rapport par date.'], ['agent', 'Quel est l’impact de ne pas le faire ?'], ['moi', 'Ils exportent tout dans Excel chaque semaine.'], ['agent', 'On l’assigne à qui ?'], ['moi', 'À Alex.'], ['agent', 'Sprint courant ?'], ['moi', 'Oui.'], ['agent', 'Voici ma proposition.']],
+      proposition: ['Proposition de story', 'Filtrer le rapport par date', 'En tant qu’analyste, je veux filtrer le rapport par date pour ne plus tout exporter dans Excel.', 'Assignée à Alex · Sprint courant'],
+      accepter: 'Accepter', accepte: 'Acceptée', envoye: 'C’est fait. Elle est au backlog, dans le sprint courant.',
       compta: 'Mon comptable', etapes: ['Facture générée', 'Reçu classé, déduction notée', 'Écriture au journal', 'TPS et TVQ calculées', 'Déclarations préparées', 'Échéances au calendrier'], ajour: 'Livres à jour',
       comptaDit: 'Ce qu’il me dit de faire', aFaire: 'À faire', aOptimiser: 'À optimiser',
       rappels: [['30', 'nov.', 'Remise TPS et TVQ', 'Le montant est calculé, il reste à payer.'], ['15', 'déc.', 'Acompte d’impôt', 'Mets la somme de côté dès maintenant.'], ['30', 'avr.', 'Déclaration de revenus', 'Prête à transmettre.']],
@@ -88,6 +90,7 @@
     };
 
   function apres(ms, f) { minuteries.push(setTimeout(f, calme ? 0 : ms)); }
+  var BATTEMENT = 1000, LIRE = 1600, TENIR = 4000;
   function boucle(nom, ms) { if (!calme) apres(ms, function () { montrer(nom); }); }
   function arreter() {
     minuteries.forEach(clearTimeout);
@@ -119,7 +122,7 @@
       c.innerHTML = '<canvas class="u-toile" role="img" aria-label="' + (en ? 'A Good Keyboard opening animations' : 'Les ouvertures d’Un bon clavier') + '"></canvas>';
       charger('ouvertures', 'OUVERTURES', function () {
         if (!ecran.contains(c)) return;
-        var o = window.OUVERTURES, toile = c.firstChild, g = toile.getContext('2d'), RETENU = 1.3, FONDU = 0.3;
+        var o = window.OUVERTURES, toile = c.firstChild, g = toile.getContext('2d'), RETENU = 4.5, FONDU = 0.8, PAUSE = 0.7;
         var r = Math.min(window.devicePixelRatio || 1, 2);
         toile.width = Math.round(toile.clientWidth * r);
         toile.height = Math.round(toile.clientHeight * r);
@@ -158,7 +161,7 @@
           if (!ecran.contains(c)) return;
           t += Math.min(0.05, avant ? (maintenant - avant) / 1000 : 0);
           avant = maintenant;
-          if (t > courante.dur + RETENU) suivante();
+          if (t > courante.dur + RETENU + PAUSE) suivante();
           dessiner();
           requestAnimationFrame(image);
         }
@@ -348,48 +351,57 @@
       var vue = aller(0, '<div class="t-entete"><b>' + T.rencontre + '</b><span>' + T.transcription + '</span></div><div class="t-lignes"></div>');
       T.lignes.forEach(function (l, i) {
         var qui = l[0] === 'agent' ? PICTO : '<i' + (l[0] === T.moi ? ' class="moi"' : '') + '>' + l[0] + '</i>';
-        apres(300 + i * 650, function () {
+        apres(400 + i * BATTEMENT, function () {
           vue.querySelector('.t-lignes').insertAdjacentHTML('beforeend', '<div class="t-ligne">' + qui + '<span>' + l[1] + '</span></div>');
         });
       });
-      apres(3000, function () {
+      var cartesA = 400 + (T.lignes.length - 1) * BATTEMENT + LIRE;
+      apres(cartesA, function () {
         var cartes = T.cartes.map(function (k) {
           return '<div class="carte-po"><small>' + k[0] + '</small><b>' + k[1] + '</b><div class="boutons"><span class="oui">' + T.approuver + '</span><span>' + T.rejeter + '</span></div></div>';
         }).join('');
         vue = aller(1, enteteAgent(T.nomTranscription, T.pour) + '<div class="t-cartes">' + cartes + '</div>');
       });
       [0, 1].forEach(function (i) {
-        apres(3900 + i * 800, function () {
+        apres(cartesA + (i + 1) * BATTEMENT, function () {
           var carte = vue.querySelectorAll('.carte-po')[i];
           carte.classList.add('faite');
           carte.querySelector('.oui').textContent = T.approuve;
         });
       });
-      apres(5600, function () { vue = aller(2, backlog()); });
-      apres(6100, function () { ajouterStory(vue); });
-      apres(6900, function () {
+      var backlogA = cartesA + 2 * BATTEMENT + LIRE;
+      apres(backlogA, function () { vue = aller(2, backlog()); });
+      apres(backlogA + BATTEMENT, function () { ajouterStory(vue); });
+      apres(backlogA + 2 * BATTEMENT, function () {
         var ligne = vue.querySelectorAll('.ado-ligne')[2];
         ligne.classList.add('maj');
         ligne.querySelector('em').textContent = T.maj;
       });
-      boucle('teams', 10500);
+      boucle('teams', backlogA + 2 * BATTEMENT + TENIR);
     },
 
     stories: function (c) {
       var aller = fil(c, T.filStories);
       var vue = aller(0, enteteAgent(T.nomBacklog, T.agent) + '<div class="chat"></div>');
+      var chat = vue.querySelector('.chat');
       ecrireChat(vue, T.chat);
-      var depart = 300 + T.chat.length * 650 + 500;
-      apres(depart, function () {
-        vue = aller(1, '<div class="pa-entete"><b>Power Automate</b><span>' + T.fluxTitre + '</span></div><div class="flux">' + T.flux.map(function (n) { return '<div class="noeud">' + n + '</div>'; }).join('') + '</div>');
+      var carteA = 400 + T.chat.length * BATTEMENT;
+      apres(carteA, function () {
+        var p = T.proposition;
+        glisser(chat, '<div class="carte-po carte-adaptative"><small>' + p[0] + '</small><b>' + p[1] + '</b><p>' + p[2] + '</p><span class="meta">' + p[3] + '</span><div class="boutons"><span class="oui">' + T.accepter + '</span><span>' + T.rejeter + '</span></div></div>');
+        c.querySelectorAll('.fil li')[1].classList.add('fait');
       });
-      T.flux.forEach(function (_, i) {
-        apres(depart + 300 + i * 380, function () { vue.querySelectorAll('.noeud')[i].classList.add('fait'); });
+      var accepteA = carteA + BATTEMENT + LIRE;
+      apres(accepteA, function () {
+        var carte = chat.querySelector('.carte-adaptative');
+        carte.classList.add('faite');
+        carte.querySelector('.oui').textContent = T.accepte;
       });
-      var fin = depart + 300 + T.flux.length * 380 + 300;
+      apres(accepteA + BATTEMENT, function () { ecrireChat(vue, [['agent', T.envoye]], 0); });
+      var fin = accepteA + BATTEMENT + LIRE;
       apres(fin, function () { vue = aller(2, backlog()); });
-      apres(fin + 500, function () { ajouterStory(vue); });
-      boucle('stories', fin + 4500);
+      apres(fin + BATTEMENT, function () { ajouterStory(vue); });
+      boucle('stories', fin + BATTEMENT + TENIR);
     },
 
     powerbi: function (c) {
@@ -566,11 +578,23 @@
     };
   }
 
-  function ecrireChat(vue, messages) {
+  function glisser(chat, html) {
+    chat.insertAdjacentHTML('beforeend', html);
+    var nouveau = chat.lastElementChild;
+    var d = nouveau.offsetHeight + (parseFloat(getComputedStyle(chat).rowGap) || 0);
+    chat.style.transition = 'none';
+    chat.style.transform = 'translateY(' + d + 'px)';
+    chat.getBoundingClientRect();
+    chat.style.transition = 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)';
+    chat.style.transform = '';
+  }
+
+  function ecrireChat(vue, messages, depart) {
+    if (depart === undefined) depart = 400;
     messages.forEach(function (m, i) {
-      apres(300 + i * 650, function () {
+      apres(depart + i * BATTEMENT, function () {
         var agent = m[0] === 'agent';
-        vue.querySelector('.chat').insertAdjacentHTML('beforeend', '<div class="tour ' + m[0] + '">' + (agent ? PICTO : '') + '<div><small>' + (agent ? T.nomBacklog : T.moi) + '</small><div class="bulle ' + m[0] + '">' + m[1] + '</div></div></div>');
+        glisser(vue.querySelector('.chat'), '<div class="tour ' + m[0] + '">' + (agent ? PICTO : '') + '<div><small>' + (agent ? T.nomBacklog : T.moi) + '</small><div class="bulle ' + m[0] + '">' + m[1] + '</div></div></div>');
       });
     });
   }
