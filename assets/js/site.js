@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=4254276152';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=f559e8e0f4';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -49,7 +49,7 @@
       pbLignes: [['Mobile app', 100, 100], ['New website', 85, 100], ['Loyalty program', 55, 90], ['Virtual call center', 40, 85], ['Sales dashboard', 20, 75], ['Satisfaction survey', 10, 60]],
       barreMac: 'Mac menu bar',
       frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words per day', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
-      perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
+      perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude Code', 'Simulators', 'Rest of the Mac'],
       lTitre: 'What language does the world write in?', lPhrase: function (m, l) { return '<b>' + m + ' million people</b> write every day in ' + l + '.'; },
       lNoms: { fr: 'French', en: 'English', es: 'Spanish', zh: 'Mandarin', hi: 'Hindi', ar: 'Arabic' }, lDepart: 'en',
       mFil: ['Decide', 'Verify', 'Test', 'Iterate'],
@@ -82,7 +82,7 @@
       pbLignes: [['Application mobile', 100, 100], ['Nouveau site web', 85, 100], ['Programme de fidélité', 55, 90], ['Centre d’appels virtuel', 40, 85], ['Tableau de bord des ventes', 20, 75], ['Sondage de satisfaction', 10, 60]],
       barreMac: 'Barre d’état du Mac',
       frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots par jour', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
-      perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
+      perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude Code', 'Simulateurs', 'Reste du Mac'],
       lTitre: 'Dans quelle langue le monde écrit-il ?', lPhrase: function (m, l) { return '<b>' + m + ' millions de personnes</b> écrivent au quotidien en ' + l + '.'; },
       lNoms: { fr: 'français', en: 'anglais', es: 'espagnol', zh: 'mandarin', hi: 'hindi', ar: 'arabe' }, lDepart: 'fr',
       mFil: ['Décider', 'Vérifier', 'Tester', 'Itérer'],
@@ -473,7 +473,7 @@
       var heures = [36041, 38654, 36601, 28022, 23518, 12058, 12492, 9772, 10569, 18807, 14798, 13262, 10813, 6386, 4044, 20858, 18602, 24652, 7054];
       var etiquettes = heures.map(function (_, i) { return [0, 7, 13, 18].indexOf(i) >= 0 ? (i + 5) + ' h' : ''; });
       var virgule = function (t) { return en ? t : t.replace('.', ','); };
-      var occupation = [3, 0, 14];
+      var occupation = [31, 24, 13], processeur = 68;
       var pages = [
         function (zone) {
           zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(29286) + '</span>' +
@@ -481,16 +481,16 @@
           apres(250, function () { monterBarres(zone, heures); });
         },
         function (zone) {
-          zone.innerHTML = '<h4>' + T.processeur + '</h4><span class="grand">17 %</span>' +
-            grille(T.statsPerf, [pct(43), virgule('18.8') + T.memoire, pct(21), virgule('3.8') + T.go]) + '<h4>' + T.quiOccupe + '</h4>' +
+          zone.innerHTML = '<h4>' + T.processeur + '</h4><span class="grand">' + pct(processeur) + '</span>' +
+            grille(T.statsPerf, [pct(54), virgule('39.2') + T.memoire, pct(91), virgule('6.1') + T.go]) + '<h4>' + T.quiOccupe + '</h4>' +
             '<div class="jauges">' + T.occupants.map(function (n, i) { return '<div><span>' + n + '</span><i><b></b></i><em>' + pct(occupation[i]) + '</em></div>'; }).join('') + '</div>';
           apres(250, function () {
-            zone.querySelectorAll('.jauges b').forEach(function (b, i) { b.style.width = (occupation[i] / 17 * 100) + '%'; });
+            zone.querySelectorAll('.jauges b').forEach(function (b, i) { b.style.width = (occupation[i] / processeur * 100) + '%'; });
           });
         },
         function (zone) {
-          zone.innerHTML = '<h4>' + T.chrono + '</h4><span class="grand">6 h 43</span>' +
-            grille(T.statsChrono, ['6 h 45', '3', '31 h 30', T.arrondi]) + '<h4>' + T.frise + '</h4>' +
+          zone.innerHTML = '<h4>' + T.chrono + '</h4><span class="grand">7 h 06</span>' +
+            grille(T.statsChrono, ['7 h', '3', '31 h 30', T.arrondi]) + '<h4>' + T.frise + '</h4>' +
             '<div class="frise"><i></i><i></i><i></i></div>' +
             '<div class="frise-heures"><span>8 h</span><span>12 h</span><span>16 h</span></div>';
         }
@@ -500,7 +500,7 @@
         '<path d="M2 12.6a7 7 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9.4 11 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/>',
         '<circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.2V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
       ];
-      var textes = [nombre(29286), pct(17), '6 h 43'];
+      var textes = [nombre(29286), pct(processeur), '7 h 06'];
       c.classList.add('c-mac');
       c.innerHTML = '<p class="mac-lieu">' + T.barreMac + '</p><div class="mac-barre mac-widgets">' + textes.map(function (t, i) {
         return '<span class="mac-item"><svg viewBox="0 0 16 16" aria-hidden="true">' + picto[i] + '</svg>' + t + '</span>';

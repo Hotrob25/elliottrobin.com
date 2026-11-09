@@ -448,17 +448,18 @@ a { color: inherit; }
 .mac-widgets .mac-item.actif { background: var(--vert); color: #fff; }
 .mac-widgets svg { flex: none; width: 1.1em; height: 1.1em; }
 .c-widgets .mac-menu { padding-top: 8%; font-size: 1.02em; }
-.c-widgets .grille { gap: 1em; margin-bottom: 1.5em; padding: 1em 0; }
+.c-widgets .grille { grid-template-columns: 1fr 1.2fr; gap: 1em; margin-bottom: 1.5em; padding: 1em 0; }
+.c-widgets .grille dd { white-space: nowrap; }
 .c-widgets .mac-menu .barres { height: 11em; margin-top: 0.5em; }
 .jauges { display: grid; gap: 1.1em; margin-top: 0.8em; }
-.jauges div { display: grid; grid-template-columns: 6.6em 1fr 2.6em; align-items: center; gap: 0.5em; font-size: 0.9em; white-space: nowrap; }
+.jauges div { display: grid; grid-template-columns: 7.8em 1fr 2.6em; align-items: center; gap: 0.5em; font-size: 0.9em; white-space: nowrap; }
 .jauges i { height: 0.5em; border-radius: 999px; background: #ececec; overflow: hidden; }
 .jauges b { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--vert); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
 .jauges em { font-style: normal; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
 .frise { position: relative; height: 2.4em; margin-top: 0.6em; border-radius: 0.4em; background: #ececec; overflow: hidden; }
 .frise i { position: absolute; top: 0; bottom: 0; left: 6%; width: 27%; background: var(--vert); animation: fondu 0.5s both; }
 .frise i:nth-child(2) { left: 39%; width: 21%; animation-delay: 0.2s; }
-.frise i:nth-child(3) { left: 68%; width: 19%; animation-delay: 0.4s; }
+.frise i:nth-child(3) { left: 68%; width: 23%; animation-delay: 0.4s; }
 .frise-heures { display: flex; justify-content: space-between; margin-top: 0.4em; font-size: 0.72em; color: #777; }
 .mac-menu .barres { display: flex; align-items: flex-end; gap: 3%; height: 5.4em; margin-bottom: 0.9em; }
 .mac-menu .barre { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; padding-bottom: 1.2em; }
