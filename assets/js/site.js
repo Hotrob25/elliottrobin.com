@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=f75445fd35';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=4254276152';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -48,7 +48,7 @@
       pbValeur: 'Value delivered', pbRealisation: 'Completion', pbCible: 'Target', pbVolet: 'Stream ', pbLivrable: 'Deliverable', pbReel: 'Actual', pbProjete: 'Projected',
       pbLignes: [['Mobile app', 100, 100], ['New website', 85, 100], ['Loyalty program', 55, 90], ['Virtual call center', 40, 85], ['Sales dashboard', 20, 75], ['Satisfaction survey', 10, 60]],
       barreMac: 'Mac menu bar',
-      frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words typed', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
+      frappes: 'Keystrokes per day, on average', statsFrappes: ['Daily record', 'Words per day', 'Best minute', 'Corrections'], parHeure: 'By hour of the day',
       perf: 'Mac performance', processeur: 'Processor', statsPerf: ['GPU', 'Memory', 'Peak, last minute', 'Swap'], memoire: ' / 48 GB', go: ' GB', quiOccupe: 'What’s using the processor', occupants: ['Claude', 'Simulators', 'Rest of the Mac'],
       lTitre: 'What language does the world write in?', lPhrase: function (m, l) { return '<b>' + m + ' million people</b> write every day in ' + l + '.'; },
       lNoms: { fr: 'French', en: 'English', es: 'Spanish', zh: 'Mandarin', hi: 'Hindi', ar: 'Arabic' }, lDepart: 'en',
@@ -81,7 +81,7 @@
       pbValeur: 'Valeur livrée', pbRealisation: 'Réalisation', pbCible: 'Cible', pbVolet: 'Volet ', pbLivrable: 'Livrable', pbReel: 'Réel', pbProjete: 'Projeté',
       pbLignes: [['Application mobile', 100, 100], ['Nouveau site web', 85, 100], ['Programme de fidélité', 55, 90], ['Centre d’appels virtuel', 40, 85], ['Tableau de bord des ventes', 20, 75], ['Sondage de satisfaction', 10, 60]],
       barreMac: 'Barre d’état du Mac',
-      frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots tapés', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
+      frappes: 'Frappes par jour, en moyenne', statsFrappes: ['Record d’une journée', 'Mots par jour', 'Meilleure minute', 'Corrections'], parHeure: 'Par heure de la journée',
       perf: 'Performance du Mac', processeur: 'Processeur', statsPerf: ['GPU', 'Mémoire', 'Pic, dernière minute', 'Swap'], memoire: ' / 48 Go', go: ' Go', quiOccupe: 'Qui occupe le processeur', occupants: ['Claude', 'Simulateurs', 'Reste du Mac'],
       lTitre: 'Dans quelle langue le monde écrit-il ?', lPhrase: function (m, l) { return '<b>' + m + ' millions de personnes</b> écrivent au quotidien en ' + l + '.'; },
       lNoms: { fr: 'français', en: 'anglais', es: 'espagnol', zh: 'mandarin', hi: 'hindi', ar: 'arabe' }, lDepart: 'fr',
@@ -476,8 +476,8 @@
       var occupation = [3, 0, 14];
       var pages = [
         function (zone) {
-          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(29033) + '</span>' +
-            grille(T.statsFrappes, [nombre(41909), nombre(55256), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
+          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(29286) + '</span>' +
+            grille(T.statsFrappes, [nombre(41909), nombre(4666), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
           apres(250, function () { monterBarres(zone, heures); });
         },
         function (zone) {
@@ -500,7 +500,7 @@
         '<path d="M2 12.6a7 7 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9.4 11 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/>',
         '<circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.2V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
       ];
-      var textes = [nombre(29033), pct(17), '6 h 43'];
+      var textes = [nombre(29286), pct(17), '6 h 43'];
       c.classList.add('c-mac');
       c.innerHTML = '<p class="mac-lieu">' + T.barreMac + '</p><div class="mac-barre mac-widgets">' + textes.map(function (t, i) {
         return '<span class="mac-item"><svg viewBox="0 0 16 16" aria-hidden="true">' + picto[i] + '</svg>' + t + '</span>';
