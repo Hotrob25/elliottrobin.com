@@ -113,6 +113,7 @@ a { color: inherit; }
 .tiroir .contenu { padding-bottom: 18px; }
 .tiroir p { margin: 0 0 8px; font-size: 13.5px; line-height: 1.42; color: var(--doux); text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
 .tiroir .genre { font-size: 12.5px; color: var(--vert-clair); margin-bottom: 12px; text-align: left; }
+.tiroir .note { margin: 14px 0 0; padding-top: 10px; border-top: 1px solid var(--filet); font-size: 11.5px; line-height: 1.45; color: rgba(255, 255, 255, 0.5); text-align: left; -webkit-hyphens: manual; hyphens: manual; }
 .tiroir .faits { margin-top: 14px; color: var(--texte); font-size: 12.5px; text-align: left; -webkit-hyphens: manual; hyphens: manual; }
 .mecanique { margin: 18px 0 8px; padding: 0; list-style: none; color: var(--doux); font-size: 13px; line-height: 1.38; }
 .mecanique li { margin-bottom: 5px; text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
