@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=0bd07accfe';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=ed0b81464a';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -115,7 +115,6 @@
   var scenes = {
     accueil: function (c) {
       ecrire(c, NOM, TITRE);
-      if (!document.body.classList.contains('accueil')) boucle('accueil', 7000);
     },
 
     clavier: function (c) {
@@ -476,8 +475,8 @@
       var occupation = [31, 24, 13], processeur = 68;
       var pages = [
         function (zone) {
-          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(29286) + '</span>' +
-            grille(T.statsFrappes, [nombre(41909), nombre(4666), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
+          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(27109) + '</span>' +
+            grille(T.statsFrappes, [nombre(41909), nombre(4297), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
           apres(250, function () { monterBarres(zone, heures); });
         },
         function (zone) {
@@ -500,7 +499,7 @@
         '<path d="M2 12.6a7 7 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9.4 11 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/>',
         '<circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.2V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
       ];
-      var textes = [nombre(29286), pct(processeur), '7 h 06'];
+      var textes = [nombre(27109), pct(processeur), '7 h 06'];
       c.classList.add('c-mac');
       c.innerHTML = '<p class="mac-lieu">' + T.barreMac + '</p><div class="mac-barre mac-widgets">' + textes.map(function (t, i) {
         return '<span class="mac-item"><svg viewBox="0 0 16 16" aria-hidden="true">' + picto[i] + '</svg>' + t + '</span>';
@@ -680,9 +679,23 @@
     '</span></div><div class="indicateur" aria-hidden="true"></div>');
 
   var etroit = matchMedia('(max-width: 760px)');
+  var glisse = 0;
   function sousLiPhone(b) {
     var liste = document.querySelector('.cote');
-    liste.scrollBy({ top: b.getBoundingClientRect().top - liste.getBoundingClientRect().top - 10, behavior: calme ? 'auto' : 'smooth' });
+    var depart = liste.scrollTop, debut = performance.now(), jeton = ++glisse;
+    function cible() {
+      var max = liste.scrollHeight - liste.clientHeight;
+      return Math.max(0, Math.min(max, liste.scrollTop + b.getBoundingClientRect().top - liste.getBoundingClientRect().top - 10));
+    }
+    if (calme) { liste.scrollTop = cible(); return; }
+    var fin = cible();
+    (function pas(maintenant) {
+      if (jeton !== glisse) return;
+      var t = Math.min(1, (maintenant - debut) / 550), e = 1 - Math.pow(1 - t, 3);
+      liste.scrollTop = depart + (fin - depart) * e;
+      if (t < 1) requestAnimationFrame(pas);
+      else liste.scrollTop = cible();
+    })(debut);
   }
 
   function fermer(b) {
@@ -697,8 +710,12 @@
       if (!ouvrir) return;
       b.setAttribute('aria-expanded', 'true');
       document.getElementById(b.getAttribute('aria-controls')).classList.add('ouvert');
-      if (document.body.classList.contains('accueil')) envol(b.dataset.scene);
-      else montrer(b.dataset.scene);
+      var sansNom = b.dataset.scene === 'accueil';
+      document.body.classList.toggle('sans-nom', sansNom);
+      if (document.body.classList.contains('accueil')) {
+        if (sansNom) { document.body.classList.remove('accueil'); montrer('accueil'); }
+        else envol(b.dataset.scene);
+      } else montrer(b.dataset.scene);
       if (etroit.matches) setTimeout(function () { sousLiPhone(b); }, 420);
     });
   });

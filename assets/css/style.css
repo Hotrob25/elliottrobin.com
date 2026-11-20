@@ -53,7 +53,8 @@ a { color: inherit; }
 .accueil .qui .n, .accueil .qui .p { opacity: 0; transition: none; }
 .qui h1 { margin: 0; font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
 .qui .p { display: block; margin-top: 2px; font-size: 15px; font-weight: 500; letter-spacing: 0; }
-.qui { position: relative; }
+.qui { position: relative; transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.65, 0, 0.15, 1); }
+.sans-nom .qui { opacity: 0; transform: translateY(-6px); pointer-events: none; }
 .mot {
   position: absolute;
   top: 0;
@@ -506,12 +507,14 @@ a { color: inherit; }
     display: flex;
     justify-content: center;
     padding: calc(env(safe-area-inset-top) + 42px) 0 26px;
+    transition: padding-top 0.6s cubic-bezier(0.65, 0, 0.15, 1);
     background: var(--fond-mobile);
     -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 18px), transparent);
     mask-image: linear-gradient(180deg, #000 calc(100% - 18px), transparent);
   }
     .socle::before { inset: 0; width: auto; aspect-ratio: auto; transform: none; }
   .phone { box-shadow: 0 0 40px rgba(90, 190, 90, 0.2); }
+    .sans-nom .socle { padding-top: calc(env(safe-area-inset-top) + 14px); }
   .projets { margin: 10px 16px 0; padding: 0 16px; border-radius: 18px; background: rgba(255, 255, 255, 0.055); }
   .projets > li { border-top: 0; }
   .projets > li + li { border-top: 1px solid rgba(255, 255, 255, 0.09); }
