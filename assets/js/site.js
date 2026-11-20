@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=014955146d';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=a9ce6dd403';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -488,7 +488,7 @@
           });
         },
         function (zone) {
-          zone.innerHTML = '<h4>' + T.chrono + '</h4><span class="grand">7 h 06</span>' +
+          zone.innerHTML = '<h4>' + T.chrono + '</h4><span class="grand">7 h 46</span>' +
             grille(T.statsChrono, ['7 h', '3', '38 h 15', T.arrondi]) + '<h4>' + T.frise + '</h4>' +
             '<div class="frise"><i></i><i></i><i></i></div>' +
             '<div class="frise-heures"><span>8 h</span><span>12 h</span><span>16 h</span></div>';
@@ -499,7 +499,7 @@
         '<path d="M2 12.6a7 7 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9.4 11 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/>',
         '<circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.2V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
       ];
-      var textes = [nombre(27109), pct(processeur), '7 h 06'];
+      var textes = [nombre(27109), pct(processeur), '7 h 46'];
       c.classList.add('c-mac');
       c.innerHTML = '<p class="mac-lieu">' + T.barreMac + '</p><div class="mac-barre mac-widgets">' + textes.map(function (t, i) {
         return '<span class="mac-item"><svg viewBox="0 0 16 16" aria-hidden="true">' + picto[i] + '</svg>' + t + '</span>';
