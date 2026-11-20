@@ -315,7 +315,8 @@ a { color: inherit; }
 .carte-po.faite .boutons span:not(.oui) { opacity: 0.3; }
 
 .chat { display: flex; flex-direction: column; gap: 0.5em; padding: 5% 5%; }
-.c-stories .chat { flex: 1; min-height: 0; justify-content: flex-end; overflow: hidden; }
+.c-stories .chat { flex: 1; min-height: 0; overflow: hidden; }
+.c-stories .chat > :first-child { margin-top: auto; }
 .c-stories .tour, .c-stories .carte-po { flex: none; }
 .carte-adaptative { align-self: flex-start; width: 86%; margin: 0 0 0 2.3em; border-left: 0.25em solid #4b53bc; }
 .carte-adaptative p { margin: 0 0 0.5em; font-size: 0.92em; color: #444; }
@@ -470,8 +471,18 @@ a { color: inherit; }
 
 @media (max-width: 760px) {
   html, body { background: var(--fond-mobile); }
-  .scene { display: flex; flex-direction: column; align-items: stretch; padding: 0; overflow: clip; }
-  .cote { display: contents; }
+    html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+  .scene { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding: 0; overflow: hidden; }
+  .cote {
+    flex: 1;
+    display: block;
+    height: auto;
+    min-height: 0;
+    padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+    .cote::before { content: ""; position: sticky; top: 0; z-index: 1; display: block; height: 14px; margin-bottom: -14px; background: linear-gradient(var(--fond-mobile), transparent); pointer-events: none; }
   .qui {
     position: fixed;
     z-index: 3;
@@ -490,8 +501,7 @@ a { color: inherit; }
   .socle {
     --h: min(45svh, 100vw);
     order: -1;
-    position: sticky;
-    top: 0;
+    flex: none;
     z-index: 2;
     display: flex;
     justify-content: center;
@@ -502,13 +512,12 @@ a { color: inherit; }
   }
     .socle::before { inset: 0; width: auto; aspect-ratio: auto; transform: none; }
   .phone { box-shadow: 0 0 40px rgba(90, 190, 90, 0.2); }
-  .projets { margin: 2px 16px 0; padding: 0 16px; border-radius: 18px; background: rgba(255, 255, 255, 0.055); }
+  .projets { margin: 10px 16px 0; padding: 0 16px; border-radius: 18px; background: rgba(255, 255, 255, 0.055); }
   .projets > li { border-top: 0; }
   .projets > li + li { border-top: 1px solid rgba(255, 255, 255, 0.09); }
   .projets > li:last-child { border-bottom: 0; }
   .titre-projet { padding: 14px 0; font-size: 16px; color: rgba(255, 255, 255, 0.84); }
   .pied { justify-content: center; padding: 24px 20px calc(92px + env(safe-area-inset-bottom)); }
-    .projets:has(.tiroir.ouvert) ~ .pied { padding-bottom: 50svh; }
 }
 
 @media (prefers-reduced-motion: reduce) {

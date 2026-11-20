@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=f559e8e0f4';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=0bd07accfe';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -582,6 +582,7 @@
     chat.insertAdjacentHTML('beforeend', html);
     var nouveau = chat.lastElementChild;
     var d = nouveau.offsetHeight + (parseFloat(getComputedStyle(chat).rowGap) || 0);
+    chat.scrollTop = chat.scrollHeight;
     chat.style.transition = 'none';
     chat.style.transform = 'translateY(' + d + 'px)';
     chat.getBoundingClientRect();
@@ -680,8 +681,8 @@
 
   var etroit = matchMedia('(max-width: 760px)');
   function sousLiPhone(b) {
-    var bas = document.querySelector('.socle').getBoundingClientRect().bottom - 8;
-    window.scrollBy({ top: b.getBoundingClientRect().top - bas, behavior: calme ? 'auto' : 'smooth' });
+    var liste = document.querySelector('.cote');
+    liste.scrollBy({ top: b.getBoundingClientRect().top - liste.getBoundingClientRect().top - 10, behavior: calme ? 'auto' : 'smooth' });
   }
 
   function fermer(b) {
