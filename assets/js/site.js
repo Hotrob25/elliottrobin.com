@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=a9ce6dd403';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=f093eb1dbd';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -489,7 +489,7 @@
         },
         function (zone) {
           zone.innerHTML = '<h4>' + T.chrono + '</h4><span class="grand">7 h 46</span>' +
-            grille(T.statsChrono, ['7 h', '3', '38 h 15', T.arrondi]) + '<h4>' + T.frise + '</h4>' +
+            grille(T.statsChrono, ['7 h 30', '3', '38 h 15', T.arrondi]) + '<h4>' + T.frise + '</h4>' +
             '<div class="frise"><i></i><i></i><i></i></div>' +
             '<div class="frise-heures"><span>8 h</span><span>12 h</span><span>16 h</span></div>';
         }
