@@ -13,7 +13,7 @@
   function charger(fichier, pret, fini) {
     if (window[pret]) { fini(); return; }
     var s = document.createElement('script');
-    s.src = racine + 'assets/js/' + fichier + '.js?v=f093eb1dbd';
+    s.src = racine + 'assets/js/' + fichier + '.js?v=30a4fe5640';
     s.onload = fini;
     document.head.appendChild(s);
   }
@@ -475,8 +475,8 @@
       var occupation = [31, 24, 13], processeur = 68;
       var pages = [
         function (zone) {
-          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(27109) + '</span>' +
-            grille(T.statsFrappes, [nombre(41909), nombre(4297), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
+          zone.innerHTML = '<h4>' + T.frappes + '</h4><span class="grand">' + nombre(24027) + '</span>' +
+            grille(T.statsFrappes, [nombre(41909), nombre(3804), nombre(450), pct(5)]) + '<h4>' + T.parHeure + '</h4>' + barres(heures, etiquettes);
           apres(250, function () { monterBarres(zone, heures); });
         },
         function (zone) {
@@ -499,7 +499,7 @@
         '<path d="M2 12.6a7 7 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 9.4 11 5.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/>',
         '<circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.2V8l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>'
       ];
-      var textes = [nombre(27109), pct(processeur), '7 h 46'];
+      var textes = [nombre(24027), pct(processeur), '7 h 46'];
       c.classList.add('c-mac');
       c.innerHTML = '<p class="mac-lieu">' + T.barreMac + '</p><div class="mac-barre mac-widgets">' + textes.map(function (t, i) {
         return '<span class="mac-item"><svg viewBox="0 0 16 16" aria-hidden="true">' + picto[i] + '</svg>' + t + '</span>';
